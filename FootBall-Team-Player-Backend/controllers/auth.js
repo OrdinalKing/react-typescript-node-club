@@ -1,10 +1,14 @@
-const jwt = require('jsonwebtoken');
+const redis = require('redis');
+const JWTR = require('jwt-redis').default;
 
 const config = require('../config');
 const User = require('../models/user');
 
+const redisClient = redis.createClient();
+const jwtr = new JWTR(redisClient);
+
 function generateToken(user) {
-  return jwt.sign(user, config.secretOrKey, {
+  return jwtr.sign(user, config.secretOrKey, {
     expiresIn: 60 * config.jwtExpireMinutes,
   });
 }
@@ -33,11 +37,19 @@ exports.login = (req, res) => {
         firstname: user.firstname,
         lastname: user.lastname,
       };
-      return res.json({
-        message: 'Login success',
-        user: userInfo,
-        token: `Bearer ${generateToken(userInfo)}`,
-      });
+      generateToken(userInfo)
+        .then((token) => {
+          return res.json({
+            message: 'Login success',
+            user: userInfo,
+            token: `Bearer ${token}`,
+          });
+        })
+        .catch(() => {
+          return res
+            .status(500)
+            .json({ message: 'Something went wrong, please try again' });
+        });
     });
   });
 };
@@ -63,8 +75,6 @@ exports.register = (req, res, next) => {
       };
       res.json({
         message: 'Register success!',
-        token: `Bearer ${generateToken(userInfo)}`,
-        user: userInfo,
       });
     });
   });
@@ -90,6 +100,17 @@ exports.getProfile = (req, res) => {
 };
 
 exports.logout = (req, res) => {
-  req.logout();
-  res.json({ message: 'Success' });
+  if (req.headers.authorization) {
+    jwtr
+      .destroy(req.headers.authorization.replace('Bearer ', ''))
+      .then(() => {
+        req.logout();
+        res.json({ message: 'Success' });
+      })
+      .catch(() => {
+        res
+          .status(500)
+          .json({ message: 'Something went wrong, please try again' });
+      });
+  }
 };

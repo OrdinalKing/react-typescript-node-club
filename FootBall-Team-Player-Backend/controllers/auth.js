@@ -36,7 +36,7 @@ exports.login = (req, res) => {
       return res.json({
         message: 'Login success',
         user: userInfo,
-        token: `JWT ${generateToken(userInfo)}`,
+        token: `Bearer ${generateToken(userInfo)}`,
       });
     });
   });
@@ -63,7 +63,7 @@ exports.register = (req, res, next) => {
       };
       res.json({
         message: 'Register success!',
-        token: `JWT ${generateToken(userInfo)}`,
+        token: `Bearer ${generateToken(userInfo)}`,
         user: userInfo,
       });
     });

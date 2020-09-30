@@ -6,7 +6,7 @@ const CompetitionSchema = new Schema(
   {
     onlineId: {
       type: Number,
-      required,
+      required: true,
     },
   },
   {

@@ -5,21 +5,21 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
-    firstName: {
+    firstname: {
       type: String,
-      required,
+      required: true,
     },
-    lastName: {
+    lastname: {
       type: String,
-      required,
+      required: true,
     },
     email: {
       type: String,
-      required,
+      required: true,
     },
     password: {
       type: String,
-      required,
+      required: true,
     },
   },
   {

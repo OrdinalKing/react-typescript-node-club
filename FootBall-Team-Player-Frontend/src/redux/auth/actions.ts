@@ -10,7 +10,7 @@ export const signInSuccess = (user: User) => ({
   payload: user,
 });
 
-export const signInError = (err: String) => ({
+export const signInError = (err: string) => ({
   type: AuthActionTypes.SIGNIN_REQUEST_ERROR,
   payload: err,
 });
@@ -25,22 +25,22 @@ export const signUpSuccess = (user: User) => ({
   payload: user,
 });
 
-export const signUpError = (err: String) => ({
+export const signUpError = (err: string) => ({
   type: AuthActionTypes.SIGNUP_REQUEST_ERROR,
   payload: err,
 });
 
-export const signOutRequest = (payload?: String) => ({
+export const signOutRequest = (payload?: string) => ({
   type: AuthActionTypes.SIGNOUT_REQUEST,
-  payload: payload,
+  payload,
 });
 
-export const signOutSuccess = (payload?: String) => ({
+export const signOutSuccess = (payload?: string) => ({
   type: AuthActionTypes.SIGNOUT_REQUEST_SUCCESS,
-  payload: payload,
+  payload,
 });
 
-export const signOutError = (err: String) => ({
+export const signOutError = (err: string) => ({
   type: AuthActionTypes.SIGNOUT_REQUEST_ERROR,
   payload: err,
 });

@@ -40,7 +40,7 @@ function* handleSignUpRequest({ payload }: ActionType) {
   }
 }
 
-function* handleSingOutRequest({ payload }: ActionType) {
+function* handleSingOutRequest() {
   try {
     yield call(axios.request, getParams(URL.SIGN_OUT, METHOD.GET));
     clearToken();

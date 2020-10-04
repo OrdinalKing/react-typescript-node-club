@@ -1,12 +1,12 @@
 import { AuthActions as ActionType } from './actions';
-import { AuthActionTypes, AuthState } from './types';
+import { AuthActionTypes, AuthState, User } from './types';
 
 export const initialState: AuthState = {
   user: null,
   error: '',
 };
 
-const reducer = (state = initialState, action: ActionType) => {
+const reducer = (state = initialState, action: ActionType): AuthState => {
   const { type, payload } = action;
 
   switch (type) {
@@ -15,7 +15,7 @@ const reducer = (state = initialState, action: ActionType) => {
     case AuthActionTypes.UPDATE_PROFILE_SUCESS:
       return {
         ...state,
-        user: payload,
+        user: payload as User,
       };
 
     case AuthActionTypes.SIGNOUT_REQUEST_SUCCESS:
@@ -27,7 +27,7 @@ const reducer = (state = initialState, action: ActionType) => {
     case AuthActionTypes.UPDATE_PROFILE_ERROR:
       return {
         ...state,
-        error: payload,
+        error: payload as string,
       };
 
     default:

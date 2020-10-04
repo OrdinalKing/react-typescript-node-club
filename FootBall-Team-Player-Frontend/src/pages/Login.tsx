@@ -1,44 +1,57 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Card, CardContent, Typography } from '@material-ui/core';
 
-import * as authActions from '../redux/auth/actions';
+import LoginForm from 'src/components/LoginForm';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundSize: 'cover',
+    backgroundPositionX: 'center',
+    backgroundRepeat: 'no-repeat',
+    flexDirection: 'column',
+  },
+  card: {
+    width: theme.spacing(55),
+    maxWidth: '100%',
+    overflow: 'visible',
+    display: 'flex',
+    position: 'relative',
+    marginTop: theme.spacing(30),
+    '& > *': {
+      flexGrow: 1,
+      flexBasis: '50%',
+      width: '50%',
+    },
+  },
+  content: {
+    padding: theme.spacing(6, 4, 3, 4),
+  },
+  title: {
+    marginBottom: theme.spacing(5),
+  },
+  loginForm: {
+    marginTop: theme.spacing(3),
+  },
+}));
 
 const Login: React.FC<any> = (): JSX.Element => {
-  const dispatch = useDispatch();
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-
-  const onHandleLogin = () => {
-    dispatch(
-      authActions.signInRequest({
-        firstname: 'first',
-        lastname: 'last',
-        email,
-        password,
-      })
-    );
-  };
+  const classes = useStyles();
 
   return (
-    <div>
-      <input
-        name="email"
-        value={email}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setEmail(e.target.value)
-        }
-      />
-      <input
-        type="password"
-        name="password"
-        value={password}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setPassword(e.target.value)
-        }
-      />
-      <button type="button" onClick={onHandleLogin}>
-        Login
-      </button>
+    <div className={classes.root}>
+      <Card className={classes.card}>
+        <CardContent className={classes.content}>
+          <Typography className={classes.title} variant="h5">
+            Sign In
+          </Typography>
+          <LoginForm className={classes.loginForm} />
+        </CardContent>
+      </Card>
     </div>
   );
 };

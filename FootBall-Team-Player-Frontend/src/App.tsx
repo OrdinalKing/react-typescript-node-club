@@ -1,5 +1,8 @@
 import React from 'react';
-import background from 'src/assets/images/background.jpg';
+import { BrowserRouter } from 'react-router-dom';
+
+import background from './assets/images/background.jpg';
+import Routes from './routes';
 
 const App: React.FC = () => {
   return (
@@ -12,7 +15,9 @@ const App: React.FC = () => {
         width: '100vw',
       }}
     >
-      heello
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
     </div>
   );
 };

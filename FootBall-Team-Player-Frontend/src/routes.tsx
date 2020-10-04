@@ -15,8 +15,8 @@ const Routes: React.FC<any> = (): JSX.Element => {
 
   return (
     <Switch>
-      <Route path="*" exact render={() => <Redirect to="/login" />} />
       <Route path="/login" exact component={Login} />
+      <Route path="*" exact render={() => <Redirect to="/login" />} />
     </Switch>
   );
 };

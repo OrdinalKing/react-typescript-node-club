@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Avatar, Link, Typography } from '@material-ui/core';
+import { Avatar, Card, CardHeader, Link } from '@material-ui/core';
 
 import AvatarImg from 'src/assets/images/avatar.jpg';
-import { RootState } from 'src/redux/rootReducer';
-import { User } from 'src/redux/auth/types';
+
+import MoreButton from './MoreButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -25,9 +25,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: theme.spacing(3),
   },
   avatar: {
+    backgroundColor: 'transparent',
+    boxShadow: 'none',
     display: 'flex',
-    marginRight: theme.spacing(10),
-    marginTop: theme.spacing(2),
+    marginRight: theme.spacing(2),
     position: 'fixed',
     right: 0,
   },
@@ -40,10 +41,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Topbar: React.FC<any> = (): JSX.Element => {
   const classes = useStyles();
-
-  const user: User = useSelector<RootState>(
-    (state: RootState) => state.auth.user
-  ) as User;
 
   return (
     <div className={classes.root}>
@@ -79,12 +76,16 @@ const Topbar: React.FC<any> = (): JSX.Element => {
           Players
         </Link>
       </div>
-      <div className={classes.avatar}>
-        <Avatar src={AvatarImg} alt="User" />
-        <Typography className={classes.username} color="inherit" variant="h6">
+      <Card className={classes.avatar}>
+        {/* <Avatar src={AvatarImg} alt="User" />
+        <Typography className={classes.username} color="inherit" variant="h6" >
           {user && `${user.firstname} ${user.lastname}`}
-        </Typography>
-      </div>
+        </Typography> */}
+        <CardHeader
+          title={<Avatar src={AvatarImg} alt="User" />}
+          action={<MoreButton />}
+        />
+      </Card>
     </div>
   );
 };

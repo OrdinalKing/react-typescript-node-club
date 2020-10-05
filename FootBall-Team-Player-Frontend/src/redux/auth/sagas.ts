@@ -38,8 +38,8 @@ function* handleSignUpRequest({ payload }: ActionType) {
 function* handleSingOutRequest() {
   try {
     clearToken();
-    yield call(axios.request, getParams(URL.SIGN_OUT, METHOD.GET));
     yield put(signOutSuccess());
+    yield call(axios.request, getParams(URL.SIGN_OUT, METHOD.GET));
   } catch (err) {
     yield put(signOutError(err));
   }

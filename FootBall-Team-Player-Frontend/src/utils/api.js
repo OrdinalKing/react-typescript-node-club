@@ -1,6 +1,6 @@
 import { getToken } from './localStorage';
 
-const BASE_URL = 'localhost:5000/api/v1/';
+const BASE_URL = 'http://localhost:5000/api/v1/';
 
 export const METHOD = {
   DELETE: 'DELETE',

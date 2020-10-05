@@ -49,7 +49,8 @@ const LoginForm: React.FC<any> = (): JSX.Element => {
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const handleSubmit = () => {
+  const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     dispatch(
       authActions.signInRequest({
         email,
@@ -59,7 +60,7 @@ const LoginForm: React.FC<any> = (): JSX.Element => {
   };
 
   return (
-    <form className={classes.root} onSubmit={handleSubmit}>
+    <div className={classes.root}>
       <div className={classes.fields}>
         <TextField
           required
@@ -101,14 +102,14 @@ const LoginForm: React.FC<any> = (): JSX.Element => {
           className={classes.submitButton}
           color="primary"
           variant="contained"
-          type="submit"
           size="large"
           disabled={!email || !password}
+          onClick={handleLogin}
         >
           Sign In
         </Button>
       </div>
-    </form>
+    </div>
   );
 };
 

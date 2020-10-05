@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -22,13 +22,32 @@ const PrivateRoute: React.FC<PrivateRouteProp> = ({
     <Route
       path={path}
       exact
-      render={() => (isLoggedIn ? <Component /> : <Redirect to={path} />)}
+      render={(props: any) =>
+        isLoggedIn ? (
+          <Component />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: props.location },
+            }}
+          />
+        )
+      }
     />
   );
 };
 
 const Routes: React.FC<any> = (): JSX.Element => {
+  const history = useHistory();
   const isLoggedIn = getToken();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push('/home');
+    }
+    // eslint-disable-next-line
+  }, [isLoggedIn]);
 
   return (
     <Switch>

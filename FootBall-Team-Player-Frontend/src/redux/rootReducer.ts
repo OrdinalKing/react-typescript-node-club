@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import authReducer from './auth/reducer';
+import auth from './auth/reducer';
+import competition from './competition/reducer';
 
 const rootReducer = combineReducers({
-  authReducer,
+  auth,
+  competition,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

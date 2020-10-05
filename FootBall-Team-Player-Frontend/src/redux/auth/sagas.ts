@@ -2,7 +2,6 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 import { getParams, METHOD, URL } from 'src/utils/api';
-import history from 'src/utils/history';
 import { clearToken, saveToken } from 'src/utils/localStorage';
 import {
   AuthActions as ActionType,
@@ -23,7 +22,6 @@ function* handleSignInRequest({ payload }: ActionType) {
     const { token, user } = data;
     saveToken(token);
     yield put(signInSuccess(user));
-    history.push('/home');
   } catch (err) {
     yield put(signInError(err));
   }
@@ -32,7 +30,6 @@ function* handleSignInRequest({ payload }: ActionType) {
 function* handleSignUpRequest({ payload }: ActionType) {
   try {
     yield call(axios.request, getParams(URL.SIGN_UP, METHOD.POST, payload));
-    history.push('/login');
   } catch (err) {
     yield put(signUpError(err));
   }

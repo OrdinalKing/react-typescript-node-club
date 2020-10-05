@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Card, CardContent, Link, Typography } from '@material-ui/core';
 
-import LoginForm from 'src/components/LoginForm';
+import ForgotPasswordForm from 'src/components/ForgotPasswordForm';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     marginBottom: theme.spacing(5),
   },
-  loginForm: {
+  forgotForm: {
     marginTop: theme.spacing(3),
   },
   footer: {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Login: React.FC<any> = (): JSX.Element => {
+const ForgotPassword: React.FC<any> = (): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -53,29 +53,19 @@ const Login: React.FC<any> = (): JSX.Element => {
       <Card className={classes.card}>
         <CardContent className={classes.content}>
           <Typography className={classes.title} variant="h5">
-            Sign In
+            Forgot Password
           </Typography>
-          <LoginForm className={classes.loginForm} />
+          <ForgotPasswordForm className={classes.forgotForm} />
           <div className={classes.footer}>
             <Link
               align="center"
               color="primary"
               component={RouterLink}
-              to="/forgot"
+              to="/login"
               underline="always"
               variant="subtitle2"
             >
-              Forgot Password?
-            </Link>
-            <Link
-              align="center"
-              color="primary"
-              component={RouterLink}
-              to="/register"
-              underline="always"
-              variant="subtitle2"
-            >
-              Sign Up
+              Sign In
             </Link>
           </div>
         </CardContent>
@@ -84,4 +74,4 @@ const Login: React.FC<any> = (): JSX.Element => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

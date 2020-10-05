@@ -19,8 +19,8 @@ export enum AuthActionTypes {
 }
 
 export interface User {
-  firstname: string;
-  lastname: string;
+  firstname?: string;
+  lastname?: string;
   email: string;
   password: string;
 }

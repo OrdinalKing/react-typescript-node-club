@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 import Login from './pages/Login';
-// import { RootState } from './redux/rootReducer';
+import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 
 // interface IProps {
 //   logout: boolean;
@@ -16,6 +17,8 @@ const Routes: React.FC<any> = (): JSX.Element => {
   return (
     <Switch>
       <Route path="/login" exact component={Login} />
+      <Route path="/register" exact component={Register} />
+      <Route path="/forgot" exact component={ForgotPassword} />
       <Route path="*" exact render={() => <Redirect to="/login" />} />
     </Switch>
   );

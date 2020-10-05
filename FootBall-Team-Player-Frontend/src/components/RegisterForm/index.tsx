@@ -42,16 +42,22 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const LoginForm: React.FC<any> = (): JSX.Element => {
+const RegisterForm: React.FC<any> = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [firstname, setFirstname] = useState<string>('');
+  const [lastname, setLastname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPwd, setConfirmPwd] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPwd, setShowConfirmPwd] = useState<boolean>(false);
 
   const handleSubmit = () => {
     dispatch(
-      authActions.signInRequest({
+      authActions.signUpRequest({
+        firstname,
+        lastname,
         email,
         password,
       })
@@ -59,8 +65,30 @@ const LoginForm: React.FC<any> = (): JSX.Element => {
   };
 
   return (
-    <form className={classes.root} onSubmit={handleSubmit}>
+    <form className={classes.root} onSubmit={handleSubmit} autoComplete="off">
       <div className={classes.fields}>
+        <TextField
+          required
+          fullWidth
+          label="First Name"
+          name="firstname"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setFirstname(e.target.value)
+          }
+          value={firstname}
+          variant="outlined"
+        />
+        <TextField
+          required
+          fullWidth
+          label="Last Name"
+          name="lastname"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setLastname(e.target.value)
+          }
+          value={lastname}
+          variant="outlined"
+        />
         <TextField
           required
           fullWidth
@@ -95,6 +123,29 @@ const LoginForm: React.FC<any> = (): JSX.Element => {
             }
           />
         </FormControl>
+        <FormControl variant="outlined" fullWidth required>
+          <InputLabel htmlFor="confirmPassword">Password</InputLabel>
+          <OutlinedInput
+            id="confirmPassword"
+            type={showConfirmPwd ? 'text' : 'password'}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setConfirmPwd(e.target.value)
+            }
+            value={confirmPwd}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  tabIndex="-1"
+                  aria-label="toggle password visibility"
+                  aria-describedby="helper-text"
+                  onClick={() => setShowConfirmPwd(!showConfirmPwd)}
+                >
+                  {showConfirmPwd ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
       </div>
       <div>
         <Button
@@ -103,13 +154,13 @@ const LoginForm: React.FC<any> = (): JSX.Element => {
           variant="contained"
           type="submit"
           size="large"
-          disabled={!email || !password}
+          // disabled={!user.email || !password}
         >
-          Sign In
+          Sign Up
         </Button>
       </div>
     </form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

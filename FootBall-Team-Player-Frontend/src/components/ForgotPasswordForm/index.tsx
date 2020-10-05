@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  Button,
-  TextField,
-  InputLabel,
-  OutlinedInput,
-  InputAdornment,
-  IconButton,
-  FormControl,
-} from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import * as authActions from 'src/redux/auth/actions';
 
@@ -42,18 +33,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const LoginForm: React.FC<any> = (): JSX.Element => {
+const ForgotPasswordForm: React.FC<any> = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleSubmit = () => {
     dispatch(
       authActions.signInRequest({
         email,
-        password,
+        password: '',
       })
     );
   };
@@ -72,29 +61,6 @@ const LoginForm: React.FC<any> = (): JSX.Element => {
           value={email}
           variant="outlined"
         />
-        <FormControl variant="outlined" fullWidth required>
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <OutlinedInput
-            id="password"
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.target.value)
-            }
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  tabIndex="-1"
-                  aria-label="toggle password visibility"
-                  aria-describedby="helper-text"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
       </div>
       <div>
         <Button
@@ -103,13 +69,13 @@ const LoginForm: React.FC<any> = (): JSX.Element => {
           variant="contained"
           type="submit"
           size="large"
-          disabled={!email || !password}
+          disabled={!email}
         >
-          Sign In
+          Send Link
         </Button>
       </div>
     </form>
   );
 };
 
-export default LoginForm;
+export default ForgotPasswordForm;

@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { useDispatch } from 'react-redux';
 import { IconButton, Toolbar, Tooltip, Typography } from '@material-ui/core';
 import {
   createStyles,
@@ -8,6 +9,8 @@ import {
   Theme,
 } from '@material-ui/core/styles';
 import { CloudDownload } from '@material-ui/icons';
+
+import { updateCompetition } from 'src/redux/competition/actions';
 
 const useToolbarStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,7 +35,7 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
 );
 
 interface EnhancedTableToolbarProps {
-  numSelected: number;
+  selected: number[];
   title: string;
 }
 
@@ -40,12 +43,18 @@ const EnhancedTableToolbar: React.FC<EnhancedTableToolbarProps> = (
   props: EnhancedTableToolbarProps
 ): JSX.Element => {
   const classes = useToolbarStyles();
-  const { numSelected, title } = props;
+  const dispatch = useDispatch();
+  const { selected, title } = props;
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    dispatch(updateCompetition(selected));
+  };
 
   return (
     <Toolbar
       className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
+        [classes.highlight]: selected.length > 0,
       })}
     >
       <Typography
@@ -56,9 +65,9 @@ const EnhancedTableToolbar: React.FC<EnhancedTableToolbarProps> = (
       >
         {title}
       </Typography>
-      {numSelected > 0 && (
-        <Tooltip title="Import/Update selected leagues" color="secondarys">
-          <IconButton aria-label="delete">
+      {selected.length > 0 && (
+        <Tooltip title="Import/Update selected leagues" color="secondary">
+          <IconButton aria-label="delete" onClick={handleClick}>
             <CloudDownload />
           </IconButton>
         </Tooltip>

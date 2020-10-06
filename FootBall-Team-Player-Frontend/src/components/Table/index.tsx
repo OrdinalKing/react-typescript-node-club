@@ -155,7 +155,7 @@ const EnhancedTable: React.FC<EnhancedTableProp> = ({
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} title={title} />
+        <EnhancedTableToolbar selected={selected} title={title} />
         <TableContainer>
           <Table
             className={classes.table}

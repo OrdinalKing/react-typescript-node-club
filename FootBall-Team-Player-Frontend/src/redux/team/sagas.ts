@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-import { getParams, METHOD, URL } from 'src/utils/api';
+import { getParams, URL } from 'src/utils/api';
 import { fetchTeamSuccess, fetchTeamError } from './actions';
 import { TeamTypes } from './types';
 
@@ -9,7 +9,7 @@ function* handleFetchTeam() {
   try {
     const { data } = yield call(
       axios.request,
-      getParams(URL.FETCH_TEAMS, METHOD.GET)
+      getParams(URL.FETCH_TEAMS, 'GET')
     );
     yield put(fetchTeamSuccess(data.teams));
   } catch (err) {

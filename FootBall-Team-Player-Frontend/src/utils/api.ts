@@ -1,13 +1,7 @@
+import { AxiosRequestConfig, Method } from 'axios';
 import { getToken } from './localStorage';
 
 const BASE_URL = 'http://localhost:5000/api/v1';
-
-export const METHOD = {
-  DELETE: 'DELETE',
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-};
 
 export const URL = {
   SIGN_IN: '/auth/login',
@@ -15,29 +9,33 @@ export const URL = {
   SIGN_OUT: '/auth/logout',
   FORGOT_PASSWORD: '/auth/forgotpwd',
   UPDATE_PROFILE: '/auth/update_profile',
-  FETCH_COMPETITIONS: '/competitions',
-  UPDATE_COMPETITIONS: '/competitions',
+  FETCH_COMPETITIONS: '/competition/competitions',
+  UPDATE_COMPETITIONS: '/competition/competitions',
   FETCH_TEAMS: '/teams',
 };
 
-const getEndpoint = (url) => `${BASE_URL}${url}`;
+const getEndpoint = (url: string): string => `${BASE_URL}${url}`;
 
 const getHeaders = () => {
   const auth = getToken();
 
-  const headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
+  const headers: HeadersInit = new Headers();
+
+  headers.set('Accept', 'application/json');
+  headers.set('Content-Type', 'application/json');
 
   if (auth) {
-    headers.Authorization = auth;
+    headers.set('Authorization', auth);
   }
 
   return headers;
 };
 
-export const getParams = (url, method, payload = {}) => {
+export const getParams = (
+  url: string,
+  method: Method,
+  payload = {}
+): AxiosRequestConfig => {
   return {
     headers: getHeaders(),
     data: payload,
@@ -46,7 +44,7 @@ export const getParams = (url, method, payload = {}) => {
   };
 };
 
-export const getFootballParams = () => {
+export const getFootballParams = (): AxiosRequestConfig => {
   return {
     headers: {
       'X-Auth-Token': 'e05b9c5dae39409cb148e716e5058fef',
@@ -55,6 +53,5 @@ export const getFootballParams = () => {
     },
     method: 'GET',
     url: 'https://api.football-data.org/v2/competitions',
-    dataType: 'json',
   };
 };

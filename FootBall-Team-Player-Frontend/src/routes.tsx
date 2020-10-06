@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
+import Team from './pages/Teams';
 import { RootState } from './redux/rootReducer';
 import { User } from './redux/auth/types';
 
@@ -60,6 +61,7 @@ const Routes: React.FC<any> = (): JSX.Element => {
       <Route path="/register" exact component={Register} />
       <Route path="/forgot" exact component={ForgotPassword} />
       <PrivateRoute path="/home" component={Home} isLoggedIn={!!user} />
+      <PrivateRoute path="/teams" component={Team} isLoggedIn={!!user} />
       <Route path="*" exact render={() => <Redirect to="/login" />} />
     </Switch>
   );

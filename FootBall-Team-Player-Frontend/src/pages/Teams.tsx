@@ -4,14 +4,14 @@ import { useSelector } from 'react-redux';
 import Table from 'src/components/Table';
 import Topbar from 'src/components/Topbar';
 import { RootState } from 'src/redux/rootReducer';
-import { Competition } from 'src/redux/competition/types';
+import { Team } from 'src/redux/team/types';
 
 const Home: React.FC<any> = (): JSX.Element => {
-  const columns = ['name', 'startDate', 'endDate'];
+  const columns = ['id', 'name', 'shortName', 'tla', 'date'];
 
-  const competitions: Competition[] = useSelector<RootState>(
-    (state: RootState) => state.competition.competitions
-  ) as Competition[];
+  const teams: Team[] = useSelector<RootState>(
+    (state: RootState) => state.team.teams
+  ) as Team[];
 
   return (
     <>
@@ -19,8 +19,8 @@ const Home: React.FC<any> = (): JSX.Element => {
       <Table
         defaultSortField="name"
         columns={columns}
-        rows={competitions}
-        title="Leagues"
+        rows={teams}
+        title="Teams"
       />
     </>
   );

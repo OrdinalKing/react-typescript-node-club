@@ -15,6 +15,9 @@ export const URL = {
   SIGN_OUT: '/auth/logout',
   FORGOT_PASSWORD: '/auth/forgotpwd',
   UPDATE_PROFILE: '/auth/update_profile',
+  FETCH_COMPETITIONS: '/competitions',
+  UPDATE_COMPETITIONS: '/competitions',
+  FETCH_TEAMS: '/teams',
 };
 
 const getEndpoint = (url) => `${BASE_URL}${url}`;

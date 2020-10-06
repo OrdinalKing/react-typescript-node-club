@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
 import { RootState } from 'src/redux/rootReducer';
 import { fetchCompetition } from 'src/redux/competition/actions';
@@ -20,7 +21,21 @@ import {
 
 import { Competition } from 'src/redux/competition/types';
 
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    width: '60%',
+    opacity: 0.7,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingTop: theme.spacing(12),
+  },
+  header: {
+    marginTop: theme.spacing(10),
+  },
+}));
+
 const CompetitionForm: React.FC<any> = (): JSX.Element => {
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   const [competitions, setCompetitions] = useState<Competition[]>([]);
@@ -82,8 +97,8 @@ const CompetitionForm: React.FC<any> = (): JSX.Element => {
   };
 
   const handleChangePage = (e: any, newPage: number) => {
-    console.log('123123', newPage, competitions);
-    // setPage(_page);
+    console.log('123123123', newPage, competitions);
+    setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (
@@ -94,71 +109,72 @@ const CompetitionForm: React.FC<any> = (): JSX.Element => {
   };
 
   return (
-    <Card>
-      <CardHeader title="Competition" />
-      <Divider />
-      <CardContent>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  checked={selected.length === competitions.length}
-                  color="primary"
-                  indeterminate={
-                    selected.length > 0 && selected.length < competitions.length
-                  }
-                  onChange={handleSelectAll}
-                />
-              </TableCell>
-              <TableCell align="center">Name</TableCell>
-              <TableCell align="center">Current Season Start</TableCell>
-              <TableCell align="center">Current Season End</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {competitions
-              .splice(0, rowsPerPage)
-              .map((competition: Competition) => (
-                <TableRow
-                  hover
-                  key={competition.id}
-                  selected={selected.indexOf(competition.id) !== -1}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selected.indexOf(competition.id) !== -1}
-                      color="primary"
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        handleSelectOne(e, competition.id)
-                      }
-                      value={selected.indexOf(competition.id) !== -1}
-                    />
-                  </TableCell>
-                  <TableCell align="center">{competition.name}</TableCell>
-                  <TableCell align="center">
-                    {competition.currentSeason?.startDate}
-                  </TableCell>
-                  <TableCell align="center">
-                    {competition.currentSeason?.endDate}
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-      <CardActions>
-        <TablePagination
-          component="div"
-          count={competitions.length}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          rowsPerPageOptions={[5, 10, 25]}
-        />
-      </CardActions>
-    </Card>
+    <div className={classes.root}>
+      <Card>
+        <CardHeader title="Competition" />
+        <Divider />
+        <CardContent>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    checked={selected.length === competitions.length}
+                    color="primary"
+                    indeterminate={
+                      selected.length > 0 &&
+                      selected.length < competitions.length
+                    }
+                    onChange={handleSelectAll}
+                  />
+                </TableCell>
+                <TableCell align="center">Name</TableCell>
+                <TableCell align="center">Current Season Start</TableCell>
+                <TableCell align="center">Current Season End</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {competitions
+                .splice(0, rowsPerPage)
+                .map((competition: Competition) => (
+                  <TableRow
+                    hover
+                    key={competition.id}
+                    selected={selected.indexOf(competition.id) !== -1}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={selected.indexOf(competition.id) !== -1}
+                        color="primary"
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          handleSelectOne(e, competition.id)
+                        }
+                        value={selected.indexOf(competition.id) !== -1}
+                      />
+                    </TableCell>
+                    <TableCell align="center">{competition.name}</TableCell>
+                    <TableCell align="center">
+                      {competition.startDate}
+                    </TableCell>
+                    <TableCell align="center">{competition.endDate}</TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+        <CardActions>
+          <TablePagination
+            component="div"
+            count={competitions.length}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            rowsPerPageOptions={[5, 10, 25]}
+          />
+        </CardActions>
+      </Card>
+    </div>
   );
 };
 

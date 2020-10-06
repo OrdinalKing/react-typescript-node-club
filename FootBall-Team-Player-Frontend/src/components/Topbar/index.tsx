@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: theme.spacing(8),
     display: 'flex',
     color: 'white',
+    zIndex: 100,
   },
   navbar: {
     display: 'flex',
@@ -53,13 +54,13 @@ const Topbar: React.FC<any> = (): JSX.Element => {
           underline="none"
           variant="h5"
         >
-          Home
+          Leagues
         </Link>
         <Link
           align="center"
           color="inherit"
           component={RouterLink}
-          to="/home"
+          to="/teams"
           underline="none"
           variant="h5"
         >

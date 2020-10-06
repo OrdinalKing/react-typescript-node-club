@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
   },
   card: {
+    backgroundColor: '#eee',
     width: theme.spacing(55),
     maxWidth: '100%',
     overflow: 'visible',

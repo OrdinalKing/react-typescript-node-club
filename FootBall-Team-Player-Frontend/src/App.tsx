@@ -7,7 +7,7 @@ import Routes from './routes';
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundImage: `linear-gradient(180deg, rgba(20, 96, 141, 0.2), rgba(20, 96, 141, 0.1)), url(${background})`,
+    backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.1)), url(${background})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     minHeight: '100vh',

@@ -17,18 +17,11 @@ export const URL = {
 const getEndpoint = (url: string): string => `${BASE_URL}${url}`;
 
 const getHeaders = () => {
-  const auth = getToken();
-
-  const headers: HeadersInit = new Headers();
-
-  headers.set('Accept', 'application/json');
-  headers.set('Content-Type', 'application/json');
-
-  if (auth) {
-    headers.set('Authorization', auth);
-  }
-
-  return headers;
+  return {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: getToken(),
+  };
 };
 
 export const getParams = (

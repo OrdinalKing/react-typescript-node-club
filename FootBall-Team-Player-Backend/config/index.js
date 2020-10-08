@@ -8,6 +8,7 @@ const {
   JWT_SECRET,
   JWT_EXPIRE_MINUTES,
   APP_NAME,
+  DATA_API_KEY,
   // MAIL_SENDER,
   // MAIL_SENDER_PASS,
 } = process.env;
@@ -18,6 +19,7 @@ module.exports = {
   secretOrKey: JWT_SECRET,
   jwtExpireMinutes: JWT_EXPIRE_MINUTES,
   appName: APP_NAME,
+  apiKey: DATA_API_KEY,
   // emailSender: {
   //   service: 'Gmail',
   //   auth: {

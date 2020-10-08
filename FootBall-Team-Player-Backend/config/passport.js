@@ -6,7 +6,7 @@ const User = require('../models/user');
 const config = require('.');
 
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('bearer'),
   secretOrKey: config.secretOrKey,
 };
 

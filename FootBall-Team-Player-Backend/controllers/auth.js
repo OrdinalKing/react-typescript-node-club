@@ -42,7 +42,7 @@ exports.login = (req, res) => {
           return res.json({
             message: 'Login success',
             user: userInfo,
-            token: `Bearer ${token}`,
+            token,
           });
         })
         .catch(() => {

@@ -1,3 +1,5 @@
+import { Competition } from 'src/models';
+
 export enum CompetitionTypes {
   COMPETITON_REQUEST = 'COMPETITON_REQUEST',
   COMPETITON_REQUEST_SUCCESS = 'COMPETITON_REQUEST_SUCCESS',
@@ -8,13 +10,6 @@ export enum CompetitionTypes {
 }
 
 export type Maybe<T> = T | undefined | null;
-
-export interface Competition {
-  id: number;
-  name: string;
-  startDate?: Date;
-  endDate?: Date;
-}
 
 export interface CompetitionState {
   competitions: Competition[];

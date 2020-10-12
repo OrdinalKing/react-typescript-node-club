@@ -1,5 +1,6 @@
+import { Team } from 'src/models';
 import { TeamActions as ActionType } from './actions';
-import { TeamTypes, TeamState, Team } from './types';
+import { TeamTypes, TeamState } from './types';
 
 export const initialState: TeamState = {
   teams: [],

@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 
+import { User } from './models';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import Team from './pages/Teams';
 import { RootState } from './redux/rootReducer';
-import { User } from './redux/auth/types';
 
 interface PrivateRouteProp {
   component: React.FC;

@@ -9,8 +9,8 @@ export const URL = {
   SIGN_OUT: '/auth/logout',
   FORGOT_PASSWORD: '/auth/forgotpwd',
   UPDATE_PROFILE: '/auth/update_profile',
-  FETCH_COMPETITIONS: '/competition/competitions',
-  UPDATE_COMPETITIONS: '/competition/competitions',
+  FETCH_COMPETITIONS: '/competition/list',
+  UPDATE_COMPETITIONS: '/competition/import',
   FETCH_TEAMS: '/teams',
 };
 

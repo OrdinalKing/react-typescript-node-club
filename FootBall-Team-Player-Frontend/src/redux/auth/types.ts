@@ -1,3 +1,5 @@
+import { User } from 'src/models';
+
 export enum AuthActionTypes {
   SIGNIN_REQUEST = 'SIGNIN_REQUEST',
   SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS',
@@ -16,13 +18,6 @@ export enum AuthActionTypes {
   UPDATE_PROFILE = 'UPDATE_PROFILE',
   UPDATE_PROFILE_SUCESS = 'UPDATE_PROFILE_SUCCESS',
   UPDATE_PROFILE_ERROR = 'UPDATE_PROFILE_ERROR',
-}
-
-export interface User {
-  firstname?: string;
-  lastname?: string;
-  email: string;
-  password: string;
 }
 
 export type Maybe<T> = T | undefined | null;

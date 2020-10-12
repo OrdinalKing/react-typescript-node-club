@@ -8,8 +8,7 @@ import {
   TableSortLabel,
 } from '@material-ui/core';
 
-import { Competition } from 'src/redux/competition/types';
-import { Team } from 'src/redux/team/types';
+import { Competition, Team } from 'src/models';
 
 const useStyles = makeStyles(() =>
   createStyles({

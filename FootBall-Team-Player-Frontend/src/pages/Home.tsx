@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Table from 'src/components/Table';
 import Topbar from 'src/components/Topbar';
+import { Competition } from 'src/models';
 import { RootState } from 'src/redux/rootReducer';
 import { fetchCompetition } from 'src/redux/competition/actions';
-import { Competition } from 'src/redux/competition/types';
 
 const Home: React.FC<any> = (): JSX.Element => {
   const columns = ['name', 'startDate', 'endDate'];
@@ -23,12 +23,12 @@ const Home: React.FC<any> = (): JSX.Element => {
   return (
     <>
       <Topbar />
-      <Table
+      {/* <Table
         defaultSortField="name"
         columns={columns}
         rows={competitions}
         title="Leagues"
-      />
+      /> */}
     </>
   );
 };

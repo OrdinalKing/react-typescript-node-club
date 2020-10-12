@@ -1,5 +1,6 @@
+import { User } from 'src/models';
 import { AuthActions as ActionType } from './actions';
-import { AuthActionTypes, AuthState, User } from './types';
+import { AuthActionTypes, AuthState } from './types';
 
 export const initialState: AuthState = {
   user: null,

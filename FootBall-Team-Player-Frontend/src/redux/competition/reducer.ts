@@ -1,5 +1,6 @@
+import { Competition } from 'src/models';
 import { CompetitionActions as ActionType } from './actions';
-import { CompetitionTypes, CompetitionState, Competition } from './types';
+import { CompetitionTypes, CompetitionState } from './types';
 
 export const initialState: CompetitionState = {
   competitions: [],

@@ -1,4 +1,5 @@
-import { Team, TeamTypes } from './types';
+import { Team } from 'src/models';
+import { TeamTypes } from './types';
 
 export const fetchTeam = (payload: string) => ({
   type: TeamTypes.TEAM_REQUEST,

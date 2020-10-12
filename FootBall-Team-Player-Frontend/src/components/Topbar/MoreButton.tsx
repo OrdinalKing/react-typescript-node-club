@@ -12,8 +12,8 @@ import {
   MenuItem,
 } from '@material-ui/core';
 
+import { User } from 'src/models';
 import { RootState } from 'src/redux/rootReducer';
-import { User } from 'src/redux/auth/types';
 import { signOutRequest } from 'src/redux/auth/actions';
 
 const useStyles = makeStyles((theme: Theme) => ({

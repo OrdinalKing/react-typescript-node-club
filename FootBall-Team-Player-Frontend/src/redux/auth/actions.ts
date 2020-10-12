@@ -1,4 +1,5 @@
-import { AuthActionTypes, User } from './types';
+import { User } from 'src/models';
+import { AuthActionTypes } from './types';
 
 export const signInRequest = (user: User) => ({
   type: AuthActionTypes.SIGNIN_REQUEST,

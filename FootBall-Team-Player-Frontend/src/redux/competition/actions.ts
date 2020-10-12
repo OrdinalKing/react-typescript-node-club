@@ -1,4 +1,5 @@
-import { CompetitionTypes, Competition } from './types';
+import { Competition } from 'src/models';
+import { CompetitionTypes } from './types';
 
 export const fetchCompetition = () => ({
   type: CompetitionTypes.COMPETITON_REQUEST,

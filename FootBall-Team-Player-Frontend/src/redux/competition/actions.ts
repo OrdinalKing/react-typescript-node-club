@@ -16,11 +16,6 @@ export const fetchCompetitionsError = (payload: string) => ({
   payload,
 });
 
-export const updateCompetition = (payload: Competition) => ({
-  type: CompetitionTypes.UPDATE_COMPETITION_REQUEST,
-  payload,
-});
-
 export const getCompetitions = () => ({
   type: CompetitionTypes.GET_COMPETITIONS_REQUEST,
   payload: '',
@@ -28,6 +23,11 @@ export const getCompetitions = () => ({
 
 export const getCompetitionsSuccess = (payload: Competition[]) => ({
   type: CompetitionTypes.GET_COMPETITIONS_SUCCESS,
+  payload,
+});
+
+export const updateCompetition = (payload: Competition) => ({
+  type: CompetitionTypes.UPDATE_COMPETITION_REQUEST,
   payload,
 });
 

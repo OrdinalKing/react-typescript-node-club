@@ -57,7 +57,7 @@ function* handleUpdateCompetition({ payload }: ActionType) {
   try {
     const { data } = yield call(
       axios.request,
-      getParams(URL.UPDATE_COMPETITION, 'POST', { codes: ['CL'] })
+      getParams(URL.UPDATE_COMPETITION, 'POST', { ...(payload as Competition) })
     );
     yield put(updateCompetitonSuccess(data));
   } catch (err) {

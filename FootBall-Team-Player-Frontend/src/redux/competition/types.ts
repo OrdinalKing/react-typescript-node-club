@@ -16,7 +16,6 @@ export type Maybe<T> = T | undefined | null;
 
 export interface CompetitionState {
   competitions: Competition[];
-  savedCompetitions: Competition[];
   storedCompetitons: Competition[];
   error: Maybe<string>;
 }

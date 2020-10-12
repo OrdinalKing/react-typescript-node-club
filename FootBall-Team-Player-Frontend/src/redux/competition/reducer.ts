@@ -4,7 +4,6 @@ import { CompetitionTypes, CompetitionState } from './types';
 
 export const initialState: CompetitionState = {
   competitions: [],
-  savedCompetitions: [],
   storedCompetitons: [],
   error: '',
 };
@@ -24,7 +23,7 @@ const reducer = (
     case CompetitionTypes.GET_COMPETITIONS_SUCCESS:
       return {
         ...state,
-        savedCompetitions: payload as Competition[],
+        storedCompetitons: payload as Competition[],
       };
     case CompetitionTypes.UPDATE_COMPETITION_SUCESS:
       return {

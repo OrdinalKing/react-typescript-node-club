@@ -1,6 +1,12 @@
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Avatar, TableBody, TableCell, TableRow } from '@material-ui/core';
+import {
+  Avatar,
+  Button,
+  TableBody,
+  TableCell,
+  TableRow,
+} from '@material-ui/core';
 
 import { Column, Order } from './types';
 
@@ -44,6 +50,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: theme.spacing(4),
     height: theme.spacing(4),
   },
+  cell: {
+    padding: theme.spacing(1.6),
+  },
 }));
 
 interface IProps {
@@ -75,13 +84,28 @@ const TableBodyComponent: React.FC<IProps> = ({
         .map((row: any) => (
           <TableRow className={classes.row} key={row.id} hover tabIndex={-1}>
             {columns.map((column: Column) => (
-              <TableCell key={row.id + column.field} align="center">
+              <TableCell
+                className={classes.cell}
+                key={row.id + column.field}
+                align="center"
+              >
                 {column.type === 'image' && (
                   <Avatar
                     className={classes.avatar}
                     src={row[column.field]}
                     alt={row[column.field]}
                   />
+                )}
+                {column.type === 'action' && (
+                  <Button
+                    variant="contained"
+                    color={row.actionColor}
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                      row.actionHandler(e, row)
+                    }
+                  >
+                    {row.actionTitle}
+                  </Button>
                 )}
                 {column.type === 'birthday' && row[column.field].split('T')[0]}
                 {!column.type && row[column.field]}

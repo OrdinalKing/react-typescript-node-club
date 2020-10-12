@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 
 import { User } from './models';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ForgotPassword from './pages/ForgotPassword';
+import Login from './pages/Auth/Login';
+import Register from './pages/Auth/Register';
+import ForgotPassword from './pages/Auth/ForgotPassword';
 import Home from './pages/Home';
-import Team from './pages/Teams';
+import Team from './pages/Team';
 import { RootState } from './redux/rootReducer';
 
 interface PrivateRouteProp {

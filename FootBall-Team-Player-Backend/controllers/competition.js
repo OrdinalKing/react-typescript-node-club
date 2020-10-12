@@ -1,23 +1,32 @@
 const Competition = require('../models/competition');
-const config = require('../config');
-const API = require('../middlewares/api');
+const Team = require('../models/team');
+const Player = require('../models/Player');
+const footballCloud = require('../services/footballCould');
 
-exports.fetchCompetitions = (req, res) => {
-  console.log('req', req.body.codes);
-  console.log(
-    '123123123',
-    config.apiKey,
-    `${API.DATA_BASE_URL}/competitions/${req.body.codes[0]}/teams`
-  );
-  fetch(`${API.DATA_BASE_URL}/competitions/${req.body.codes[0]}/teams`, {
-    headers: {
-      'X-Auth-Token': config.apiKey,
-    },
-    method: 'GET',
-  })
-    .then((response) => response.json())
-    .then((data) => console.log('123123123', data));
-  return res.json({ message: 'successful' });
+exports.updateCompetitionDetails = (req, res) => {
+  const teamData = [];
+  Team.collection.drop();
+  Player.collection.drop();
+  footballCloud
+    .fetchTeams(req.body.code)
+    .then((data) => Team.insertMany(data.teams.filter((item) => item.crestUrl)))
+    .then((teams) => {
+      teamData.push(...teams);
+      return footballCloud.fetchPlayersByTeams(teams);
+    })
+    .then((data) => Promise.all(data.map((item) => item.json())))
+    .then((data) => {
+      const players = [];
+      data.map((item) => item && item.squad && players.push(...item.squad));
+      return Player.insertMany(players);
+    })
+    .then((players) =>
+      res.json({
+        teams: teamData,
+        players,
+      })
+    )
+    .catch((error) => res.status(500).json({ error }));
 };
 
 exports.getCompetitons = (req, res) => {

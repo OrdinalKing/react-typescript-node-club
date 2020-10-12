@@ -4,27 +4,25 @@ const { Schema } = mongoose;
 
 const CompetitionSchema = new Schema(
   {
-    onlineId: {
+    id: {
       type: Number,
+      required: true,
+    },
+    code: {
+      type: String,
       required: true,
     },
     name: {
       type: String,
       required: true,
     },
-    currentSeason: {
-      id: {
-        type: Number,
-        required: true,
-      },
-      startDate: {
-        type: Date,
-        required: true,
-      },
-      endDate: {
-        type: Date,
-        required: true,
-      },
+    startDate: {
+      type: Date,
+      required: true,
+    },
+    endDate: {
+      type: Date,
+      required: true,
     },
   },
   {

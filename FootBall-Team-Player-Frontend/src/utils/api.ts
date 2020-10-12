@@ -9,10 +9,10 @@ export const URL = {
   SIGN_OUT: '/auth/logout',
   FORGOT_PASSWORD: '/auth/forgotpwd',
   UPDATE_PROFILE: '/auth/update_profile',
-  FETCH_COMPETITIONS: '/competition/list',
-  UPDATE_COMPETITIONS: '/competition/import',
-  FETCH_TEAMS: '/team/list',
-  FETCH_PLAYERS: '/player/list',
+  UPDATE_COMPETITION: '/competition/import',
+  GET_COMPETITIONS: '/competition/list',
+  GET_TEAMS: '/team/list',
+  GET_PLAYERS: '/player/list',
 };
 
 const getEndpoint = (url: string): string => `${BASE_URL}${url}`;

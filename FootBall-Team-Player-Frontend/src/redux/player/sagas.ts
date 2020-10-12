@@ -9,7 +9,7 @@ function* handleGetPlayers() {
   try {
     const { data } = yield call(
       axios.request,
-      getParams(URL.FETCH_PLAYERS, 'POST')
+      getParams(URL.GET_PLAYERS, 'POST')
     );
     yield put(getPlayersSuccess(data));
   } catch (err) {

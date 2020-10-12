@@ -9,7 +9,7 @@ function* handleGetTeams() {
   try {
     const { data } = yield call(
       axios.request,
-      getParams(URL.FETCH_TEAMS, 'POST')
+      getParams(URL.GET_TEAMS, 'POST')
     );
     yield put(getTeamsSuccess(data));
   } catch (err) {

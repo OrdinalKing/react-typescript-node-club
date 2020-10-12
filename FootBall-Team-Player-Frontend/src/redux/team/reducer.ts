@@ -14,7 +14,7 @@ const reducer = (state = initialState, action: ActionType): TeamState => {
     case TeamTypes.GET_TEAMS_SUCCESS:
       return {
         ...state,
-        teams: [...(payload as Team[])],
+        teams: payload as Team[],
       };
     case TeamTypes.GET_TEAMS_ERROR:
       return {

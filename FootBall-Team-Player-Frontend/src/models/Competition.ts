@@ -1,5 +1,5 @@
 export default interface Competition {
-  _id: string;
+  _id?: string;
   id: string;
   name: string;
   code: string;

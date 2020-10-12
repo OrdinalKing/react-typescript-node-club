@@ -14,7 +14,7 @@ const reducer = (state = initialState, action: ActionType): PlayerState => {
     case PlayerTypes.GET_PLAYERS_SUCCESS:
       return {
         ...state,
-        players: [...(payload as Player[])],
+        players: payload as Player[],
       };
     case PlayerTypes.GET_PLAYERS_ERROR:
       return {

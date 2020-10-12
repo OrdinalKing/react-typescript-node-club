@@ -1,7 +1,8 @@
 const express = require('express');
 const authRouter = require('./auth');
 const competitionRouter = require('./competition');
-// const { requireAuth } = require('../middlewares/auth');
+const teamRouter = require('./team');
+const playerRouter = require('./player');
 
 require('../config/passport');
 
@@ -16,5 +17,7 @@ router.get('/', (req, res) => {
 
 router.use('/auth', authRouter);
 router.use('/competition', competitionRouter);
+router.use('/team', teamRouter);
+router.use('/player', playerRouter);
 
 module.exports = router;

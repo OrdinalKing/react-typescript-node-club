@@ -7,6 +7,10 @@ const router = express.Router();
 
 router.get('/list', requireAuth, competitionController.getCompetitons);
 
-router.post('/import', requireAuth, competitionController.fetchCompetitions);
+router.post(
+  '/import',
+  requireAuth,
+  competitionController.updateCompetitionDetails
+);
 
 module.exports = router;

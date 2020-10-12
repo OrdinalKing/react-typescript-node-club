@@ -3,7 +3,7 @@ const Team = require('../models/team');
 const Player = require('../models/Player');
 const footballCloud = require('../services/footballCould');
 
-exports.fetchCompetitions = (req, res) => {
+exports.updateCompetitionDetails = (req, res) => {
   const teamData = [];
   Team.collection.drop();
   Player.collection.drop();

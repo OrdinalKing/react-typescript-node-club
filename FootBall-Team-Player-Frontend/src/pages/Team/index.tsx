@@ -60,6 +60,7 @@ const Home: React.FC<any> = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [teamList, setTeamList] = useState<Team[]>([]);
+  const [openSearch, setOpenSearch] = useState<boolean>(false);
 
   const teams: Team[] = useSelector<RootState>(
     (state: RootState) => state.team.teams
@@ -76,11 +77,22 @@ const Home: React.FC<any> = (): JSX.Element => {
     }
   }, [teams]);
 
+  const handleOpenSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setOpenSearch(true);
+  };
+
   return (
     <div className={classes.root}>
       <Topbar />
       <div className={classes.table}>
-        <Table defaultOrderBy="name" columns={columns} rows={teamList} />
+        <Table
+          defaultOrderBy="name"
+          columns={columns}
+          rows={teamList}
+          title="Team"
+          handleOpenSearch={handleOpenSearch}
+        />
       </div>
     </div>
   );

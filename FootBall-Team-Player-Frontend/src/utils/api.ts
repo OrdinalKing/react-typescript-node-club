@@ -12,6 +12,7 @@ export const URL = {
   FETCH_COMPETITIONS: '/competition/list',
   UPDATE_COMPETITIONS: '/competition/import',
   FETCH_TEAMS: '/team/list',
+  FETCH_PLAYERS: '/player/list',
 };
 
 const getEndpoint = (url: string): string => `${BASE_URL}${url}`;

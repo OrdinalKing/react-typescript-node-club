@@ -18,5 +18,5 @@ function* handleGetTeams() {
 }
 
 export default function* teamSaga() {
-  yield takeLatest(TeamTypes.TEAM_REQUEST, handleGetTeams);
+  yield takeLatest(TeamTypes.GET_TEAMS_REQUEST, handleGetTeams);
 }

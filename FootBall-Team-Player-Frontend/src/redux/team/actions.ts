@@ -2,17 +2,17 @@ import { Team } from 'src/models';
 import { TeamTypes } from './types';
 
 export const getTeams = (payload: string) => ({
-  type: TeamTypes.TEAM_REQUEST,
+  type: TeamTypes.GET_TEAMS_REQUEST,
   payload,
 });
 
 export const getTeamsSuccess = (payload: Team[]) => ({
-  type: TeamTypes.TEAM_REQUEST_SUCCESS,
+  type: TeamTypes.GET_TEAMS_SUCCESS,
   payload,
 });
 
 export const getTeamsError = (payload: string) => ({
-  type: TeamTypes.TEAM_REQUEST_ERROR,
+  type: TeamTypes.GET_TEAMS_ERROR,
   payload,
 });
 

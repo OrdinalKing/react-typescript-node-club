@@ -11,12 +11,12 @@ const reducer = (state = initialState, action: ActionType): TeamState => {
   const { type, payload } = action;
 
   switch (type) {
-    case TeamTypes.TEAM_REQUEST_SUCCESS:
+    case TeamTypes.GET_TEAMS_SUCCESS:
       return {
         ...state,
         teams: [...(payload as Team[])],
       };
-    case TeamTypes.TEAM_REQUEST_ERROR:
+    case TeamTypes.GET_TEAMS_ERROR:
       return {
         ...state,
         error: payload as string,

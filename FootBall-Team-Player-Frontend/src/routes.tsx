@@ -8,6 +8,7 @@ import Register from './pages/Auth/Register';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import Home from './pages/Home';
 import Team from './pages/Team';
+import Player from './pages/Player';
 import { RootState } from './redux/rootReducer';
 
 interface PrivateRouteProp {
@@ -62,6 +63,7 @@ const Routes: React.FC<any> = (): JSX.Element => {
       <Route path="/forgot" exact component={ForgotPassword} />
       <PrivateRoute path="/home" component={Home} isLoggedIn={!!user} />
       <PrivateRoute path="/teams" component={Team} isLoggedIn={!!user} />
+      <PrivateRoute path="/players" component={Player} isLoggedIn={!!user} />
       <Route path="*" exact render={() => <Redirect to="/login" />} />
     </Switch>
   );

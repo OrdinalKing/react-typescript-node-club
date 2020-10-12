@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Table from 'src/components/Table';
 import Topbar from 'src/components/Topbar';
-import { Team } from 'src/models';
+import { Player } from 'src/models';
 import { RootState } from 'src/redux/rootReducer';
-import { getTeams } from 'src/redux/team/actions';
+import { getPlayers } from 'src/redux/player/actions';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '70%',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(11),
   },
 }));
 
@@ -33,54 +33,55 @@ const Home: React.FC<any> = (): JSX.Element => {
       width: 300,
     },
     {
-      header: '',
-      field: 'crestUrl',
-      width: 80,
-      type: 'image',
-    },
-    {
-      header: 'Short Name',
-      field: 'shortName',
-      sortable: true,
-      width: 150,
-    },
-    {
-      header: 'ABBV(tla)',
-      field: 'tla',
-      sortable: true,
-      width: 100,
-    },
-    {
-      header: 'Founded Date',
-      field: 'founded',
+      header: 'Position',
+      field: 'position',
       sortable: true,
       width: 200,
+    },
+    {
+      header: 'Date of Birth',
+      field: 'dateOfBirth',
+      sortable: true,
+      width: 250,
+      type: 'birthday',
     },
   ];
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [teamList, setTeamList] = useState<Team[]>([]);
+  const [playerList, setPlayerList] = useState<Player[]>([]);
+  const [openSearch, setOpenSearch] = useState<boolean>(false);
 
-  const teams: Team[] = useSelector<RootState>(
-    (state: RootState) => state.team.teams
-  ) as Team[];
+  const players: Player[] = useSelector<RootState>(
+    (state: RootState) => state.player.players
+  ) as Player[];
 
   useEffect(() => {
-    dispatch(getTeams(''));
+    dispatch(getPlayers(''));
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (teams && teams.length) {
-      setTeamList([...teams]);
+    if (players && players.length) {
+      setPlayerList([...players]);
     }
-  }, [teams]);
+  }, [players]);
+
+  const handleOpenSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setOpenSearch(true);
+  };
 
   return (
     <div className={classes.root}>
       <Topbar />
       <div className={classes.table}>
-        <Table defaultOrderBy="name" columns={columns} rows={teamList} />
+        <Table
+          defaultOrderBy="name"
+          columns={columns}
+          rows={playerList}
+          title="Player"
+          handleOpenSearch={handleOpenSearch}
+        />
       </div>
     </div>
   );

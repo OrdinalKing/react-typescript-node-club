@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Avatar, TableBody, TableCell, TableRow } from '@material-ui/core';
+
 import { Column, Order } from './types';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -35,6 +36,13 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
   return stabilizedThis.map((el) => el[0]);
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+  avatar: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
+}));
+
 interface IProps {
   columns: Column[];
   rows: Array<any>;
@@ -52,17 +60,25 @@ const TableBodyComponent: React.FC<IProps> = ({
   page,
   rowsPerPage,
 }: IProps): JSX.Element => {
+  const classes = useStyles();
+
   return (
     <TableBody>
       {stableSort(rows, getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         .map((row: any) => (
-          <TableRow key={row.name} hover tabIndex={-1}>
+          <TableRow key={row.id} hover tabIndex={-1}>
             {columns.map((column: Column) => (
-              <TableCell key={row.id} align="center">
+              <TableCell key={row.id + column.field} align="center">
                 {column.type === 'image' && (
-                  <Avatar src={row[column.field]} alt={row[column.field]} />
+                  <Avatar
+                    className={classes.avatar}
+                    src={row[column.field]}
+                    alt={row[column.field]}
+                  />
                 )}
+                {column.type === 'birthday' &&
+                  new Date(row[column.field]).toUTCString()}
                 {!column.type && row[column.field]}
               </TableCell>
             ))}

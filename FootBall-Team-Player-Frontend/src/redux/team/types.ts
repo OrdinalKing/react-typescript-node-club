@@ -1,9 +1,9 @@
 import { Team } from 'src/models';
 
 export enum TeamTypes {
-  TEAM_REQUEST = 'TEAM_REQUEST',
-  TEAM_REQUEST_SUCCESS = 'TEAM_REQUEST_SUCCESS',
-  TEAM_REQUEST_ERROR = 'TEAM_REQUEST_ERROR',
+  GET_TEAMS_REQUEST = 'GET_TEAMS_REQUEST',
+  GET_TEAMS_SUCCESS = 'GET_TEAMS_SUCCESS',
+  GET_TEAMS_ERROR = 'GET_TEAMS_ERROR',
 }
 
 export interface TeamState {

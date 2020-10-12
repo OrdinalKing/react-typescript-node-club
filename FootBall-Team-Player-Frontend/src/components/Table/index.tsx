@@ -9,6 +9,7 @@ import {
 
 import TableBody from './TableBody';
 import TableHead from './TableHead';
+import TableTitle from './TableTitle';
 import { Column, Order } from './types';
 
 const useStyles = makeStyles(() => ({
@@ -23,12 +24,16 @@ interface IProps {
   columns: Column[];
   defaultOrderBy: string;
   rows: Array<any>;
+  title: string;
+  handleOpenSearch: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TableComponent: React.FC<IProps> = ({
   columns,
   defaultOrderBy,
   rows,
+  title,
+  handleOpenSearch,
 }: IProps): JSX.Element => {
   const classes = useStyles();
   const [page, setPage] = useState<number>(0);
@@ -51,6 +56,7 @@ const TableComponent: React.FC<IProps> = ({
 
   return (
     <Paper className={classes.root}>
+      <TableTitle title={title} handleOpenSearch={handleOpenSearch} />
       <TableContainer className={classes.container}>
         <Table>
           <TableHead

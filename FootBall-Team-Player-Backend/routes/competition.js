@@ -5,12 +5,8 @@ const { requireAuth } = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.get('/competitions', requireAuth, competitionController.getCompetitons);
+router.get('/list', requireAuth, competitionController.getCompetitons);
 
-router.post(
-  '/competitions',
-  requireAuth,
-  competitionController.fetchCompetitions
-);
+router.post('/import', requireAuth, competitionController.fetchCompetitions);
 
 module.exports = router;

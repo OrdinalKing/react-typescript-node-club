@@ -11,7 +11,7 @@ export const URL = {
   UPDATE_PROFILE: '/auth/update_profile',
   FETCH_COMPETITIONS: '/competition/list',
   UPDATE_COMPETITIONS: '/competition/import',
-  FETCH_TEAMS: '/teams',
+  FETCH_TEAMS: '/team/list',
 };
 
 const getEndpoint = (url: string): string => `${BASE_URL}${url}`;

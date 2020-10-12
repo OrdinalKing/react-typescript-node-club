@@ -2,21 +2,21 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 import { getParams, URL } from 'src/utils/api';
-import { fetchTeamSuccess, fetchTeamError } from './actions';
+import { getTeamsSuccess, getTeamsError } from './actions';
 import { TeamTypes } from './types';
 
-function* handleFetchTeam() {
+function* handleGetTeams() {
   try {
     const { data } = yield call(
       axios.request,
-      getParams(URL.FETCH_TEAMS, 'GET')
+      getParams(URL.FETCH_TEAMS, 'POST')
     );
-    yield put(fetchTeamSuccess(data.teams));
+    yield put(getTeamsSuccess(data));
   } catch (err) {
-    yield put(fetchTeamError(err));
+    yield put(getTeamsError(err));
   }
 }
 
 export default function* teamSaga() {
-  yield takeLatest(TeamTypes.TEAM_REQUEST, handleFetchTeam);
+  yield takeLatest(TeamTypes.TEAM_REQUEST, handleGetTeams);
 }

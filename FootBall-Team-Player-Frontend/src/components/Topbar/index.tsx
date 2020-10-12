@@ -10,7 +10,6 @@ import MoreButton from './MoreButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    position: 'fixed',
     width: '100%',
     height: theme.spacing(8),
     display: 'flex',

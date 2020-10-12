@@ -37,6 +37,9 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
+  row: {
+    height: theme.spacing(8),
+  },
   avatar: {
     width: theme.spacing(4),
     height: theme.spacing(4),
@@ -62,12 +65,15 @@ const TableBodyComponent: React.FC<IProps> = ({
 }: IProps): JSX.Element => {
   const classes = useStyles();
 
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
   return (
     <TableBody>
       {stableSort(rows, getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         .map((row: any) => (
-          <TableRow key={row.id} hover tabIndex={-1}>
+          <TableRow className={classes.row} key={row.id} hover tabIndex={-1}>
             {columns.map((column: Column) => (
               <TableCell key={row.id + column.field} align="center">
                 {column.type === 'image' && (
@@ -77,13 +83,17 @@ const TableBodyComponent: React.FC<IProps> = ({
                     alt={row[column.field]}
                   />
                 )}
-                {column.type === 'birthday' &&
-                  new Date(row[column.field]).toUTCString()}
+                {column.type === 'birthday' && row[column.field].split('T')[0]}
                 {!column.type && row[column.field]}
               </TableCell>
             ))}
           </TableRow>
         ))}
+      {emptyRows > 0 && (
+        <TableRow style={{ height: 64 * emptyRows }}>
+          <TableCell colSpan={6} />
+        </TableRow>
+      )}
     </TableBody>
   );
 };

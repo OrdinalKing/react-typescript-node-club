@@ -6,4 +6,5 @@ export interface Column {
   sortable?: boolean;
   width?: number;
   type?: string;
+  url?: string;
 }

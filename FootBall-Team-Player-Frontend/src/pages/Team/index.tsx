@@ -32,6 +32,8 @@ const Home: React.FC<any> = (): JSX.Element => {
       field: 'name',
       sortable: true,
       width: 300,
+      url: 'teams',
+      type: 'link',
     },
     {
       header: '',

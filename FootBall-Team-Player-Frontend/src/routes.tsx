@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Team from './pages/Team';
 import Player from './pages/Player';
 import Profile from './pages/Profile';
+import TeamDetail from './pages/TeamDetail';
 import { RootState } from './redux/rootReducer';
 
 interface PrivateRouteProp {
@@ -62,6 +63,11 @@ const Routes: React.FC<any> = (): JSX.Element => {
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
       <Route path="/forgot" exact component={ForgotPassword} />
+      <PrivateRoute
+        path="/teams/:teamId/"
+        component={TeamDetail}
+        isLoggedIn={!!user}
+      />
       <PrivateRoute path="/home" component={Home} isLoggedIn={!!user} />
       <PrivateRoute path="/teams" component={Team} isLoggedIn={!!user} />
       <PrivateRoute path="/players" component={Player} isLoggedIn={!!user} />

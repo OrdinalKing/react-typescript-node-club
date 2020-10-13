@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import {
   Avatar,
   Button,
+  Link,
   TableBody,
   TableCell,
   TableRow,
@@ -106,6 +108,16 @@ const TableBodyComponent: React.FC<IProps> = ({
                   >
                     {row.actionTitle}
                   </Button>
+                )}
+                {column.type === 'link' && (
+                  <Link
+                    color="primary"
+                    underline="always"
+                    component={RouterLink}
+                    to={`/${column.url}/${row.id}`}
+                  >
+                    {row[column.field]}
+                  </Link>
                 )}
                 {column.type === 'birthday' && row[column.field].split('T')[0]}
                 {!column.type && row[column.field]}

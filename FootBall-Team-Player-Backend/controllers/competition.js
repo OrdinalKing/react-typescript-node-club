@@ -37,7 +37,9 @@ exports.updateCompetitionDetails = (req, res) => {
     })
     .then(() => Competition.find())
     .then((competitions) => res.json(competitions))
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) =>
+      res.status(500).json({ message: 'Something is wrong, try again' })
+    );
 };
 
 exports.getCompetitons = (req, res) => {

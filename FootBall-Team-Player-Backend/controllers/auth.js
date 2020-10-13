@@ -99,6 +99,46 @@ exports.getProfile = (req, res) => {
     });
 };
 
+exports.updateProfile = (req, res) => {
+  User.findOne({ email: req.body.email })
+    .then((item) => {
+      if (!item) return res.status(401).json({ message: 'User not found!' });
+
+      item.comparePassword(req.body.oldPassword, (err, isMatch) => {
+        if (err)
+          return res
+            .status(500)
+            .json({ message: 'Something went wrong, please try again' });
+
+        if (!isMatch)
+          return res
+            .status(401)
+            .json({ message: 'Email or password is not correct!' });
+
+        User.findOneAndUpdate(
+          { email: req.body.email },
+          {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+          },
+          { upsert: true }
+        )
+          .then(() => {
+            res.json({
+              firstname: req.body.firstname,
+              lastname: req.body.lastname,
+              email: req.body.email,
+            });
+          })
+          .catch(() =>
+            res.status(500).send({ message: 'Something is wrong, Try again!' })
+          );
+      });
+    })
+    .catch(() => res.status(404).send({ message: 'User not found' }));
+};
+
 exports.logout = (req, res) => {
   if (req.headers.authorization) {
     jwtr

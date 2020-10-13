@@ -41,7 +41,7 @@ export const getParams = (
 export const getFootballParams = (): AxiosRequestConfig => {
   return {
     headers: {
-      'X-Auth-Token': 'e05b9c5dae39409cb148e716e5058fef',
+      'X-Auth-Token': process.env.REACT_APP_API_AUTH_TOKEN,
       Accept: 'text/plain',
       'Content-Type': 'text/plain',
     },

@@ -1,7 +1,9 @@
-const Player = require('../models/Player');
+const Player = require('../models/player');
+const Query = require('../utils/query');
 
 exports.getPlayers = (req, res) => {
-  Player.find((err, players) => {
+  const query = Query.getQuery(req.body);
+  Player.find(query, (err, players) => {
     if (err) {
       return next(err);
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
-import TeamDetail from 'src/components/TeamDetail';
+import PlayerDetail from 'src/components/PlayerDetail';
 import Topbar from 'src/components/Topbar';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -14,17 +14,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const TeamDetailPage: React.FC<any> = (): JSX.Element => {
+const PlayerDetailPage: React.FC<any> = (): JSX.Element => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Topbar />
       <div className={classes.detail}>
-        <TeamDetail />
+        <PlayerDetail />
       </div>
     </div>
   );
 };
 
-export default TeamDetailPage;
+export default PlayerDetailPage;

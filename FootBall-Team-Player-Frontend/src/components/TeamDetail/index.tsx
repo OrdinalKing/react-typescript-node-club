@@ -82,7 +82,7 @@ const TeamDetail: React.FC<any> = (): JSX.Element => {
   return (
     <Card className={classes.root}>
       <CardHeader
-        title={`Team Detail (${team?.name})`}
+        title={`Team Detail: ${team?.name}`}
         action={
           <IconButton className={classes.button} onClick={handleBack}>
             <Undo />

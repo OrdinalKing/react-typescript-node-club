@@ -10,6 +10,8 @@ import {
   signOutSuccess,
   signOutError,
   signUpError,
+  updateProfileSuccess,
+  updateProfileError,
 } from './actions';
 import { AuthActionTypes } from './types';
 
@@ -45,8 +47,21 @@ function* handleSingOutRequest() {
   }
 }
 
+function* handleUpdateProfile({ payload }: ActionType) {
+  try {
+    const { data } = yield call(
+      axios.request,
+      getParams(URL.UPDATE_PROFILE, 'POST', payload)
+    );
+    yield put(updateProfileSuccess(data));
+  } catch (err) {
+    yield put(updateProfileError(err));
+  }
+}
+
 export default function* authSagas() {
   yield takeLatest(AuthActionTypes.SIGNIN_REQUEST, handleSignInRequest);
   yield takeLatest(AuthActionTypes.SIGNUP_REQUEST, handleSignUpRequest);
   yield takeLatest(AuthActionTypes.SIGNOUT_REQUEST, handleSingOutRequest);
+  yield takeLatest(AuthActionTypes.UPDATE_PROFILE, handleUpdateProfile);
 }

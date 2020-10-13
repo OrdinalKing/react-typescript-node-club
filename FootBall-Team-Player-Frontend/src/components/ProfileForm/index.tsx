@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   Button,
   FormControl,
@@ -60,13 +61,16 @@ const HtmlTooltip = withStyles((theme: Theme) => ({
 const ProfileForm: React.FC<any> = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const [user, setUser] = useState<User>({
     firstname: '',
     lastname: '',
     email: '',
     password: '',
   });
+  const [oldPwd, setOldPwd] = useState<string>('');
   const [confirmPwd, setConfirmPwd] = useState<string>('');
+  const [showOldPwd, setShowOldPwd] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPwd, setShowConfirmPwd] = useState<boolean>(false);
   const [openEmailTooltip, setOpenEmailToolTip] = useState<boolean>(false);
@@ -85,7 +89,17 @@ const ProfileForm: React.FC<any> = (): JSX.Element => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(authActions.signUpRequest(user));
+    dispatch(
+      authActions.updateProfile({
+        ...user,
+        oldPassword: oldPwd,
+      })
+    );
+  };
+
+  const handleBack = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    history.go(-1);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -144,34 +158,30 @@ const ProfileForm: React.FC<any> = (): JSX.Element => {
             variant="outlined"
           />
         </HtmlTooltip>
-        <HtmlTooltip
-          PopperProps={{ disablePortal: true }}
-          onClose={() => setOpenEmailToolTip(false)}
-          open={openEmailTooltip}
-          disableHoverListener
-          placement="bottom-start"
-          arrow
-          title={
-            <>
-              {ValidateEmail(user.email).map((error) => (
-                <Typography key={error} color="inherit">
-                  {error}
-                </Typography>
-              ))}
-            </>
-          }
-        >
-          <TextField
-            fullWidth
-            label="Email"
-            name="email"
-            onChange={handleChange}
-            onFocus={() => setOpenEmailToolTip(!!ValidateEmail(user.email))}
-            onBlur={() => setOpenEmailToolTip(false)}
-            value={user.email}
-            variant="outlined"
+        <FormControl variant="outlined" fullWidth required>
+          <InputLabel htmlFor="password">Old Password</InputLabel>
+          <OutlinedInput
+            id="password"
+            type={showOldPwd ? 'text' : 'password'}
+            value={oldPwd}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setOldPwd(e.target.value)
+            }
+            name="oldPassword"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  tabIndex="-1"
+                  aria-label="toggle password visibility"
+                  aria-describedby="helper-text"
+                  onClick={() => setShowOldPwd(!showOldPwd)}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
-        </HtmlTooltip>
+        </FormControl>
         <HtmlTooltip
           PopperProps={{ disablePortal: true }}
           onClose={() => setOpenPwdTooltip(false)}
@@ -265,9 +275,17 @@ const ProfileForm: React.FC<any> = (): JSX.Element => {
           variant="contained"
           size="large"
           onClick={handleSubmit}
-          // disabled={!user.email || !password}
         >
-          Sign Up
+          Update Profile
+        </Button>
+        <Button
+          className={classes.submitButton}
+          color="primary"
+          variant="contained"
+          size="large"
+          onClick={handleBack}
+        >
+          Back
         </Button>
       </div>
     </div>

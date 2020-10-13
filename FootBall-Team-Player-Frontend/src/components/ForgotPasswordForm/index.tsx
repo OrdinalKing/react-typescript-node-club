@@ -39,12 +39,7 @@ const ForgotPasswordForm: React.FC<any> = (): JSX.Element => {
   const [email, setEmail] = useState<string>('');
 
   const handleSubmit = () => {
-    dispatch(
-      authActions.signInRequest({
-        email,
-        password: '',
-      })
-    );
+    dispatch(authActions.forgotPassword(email));
   };
 
   return (

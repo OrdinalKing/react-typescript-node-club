@@ -2,6 +2,7 @@ const express = require('express');
 const { validate } = require('express-validation');
 
 const authController = require('../controllers/auth');
+const auth = require('../middlewares/auth');
 const { requireAuth } = require('../middlewares/auth');
 const { login, register } = require('../utils/validations');
 
@@ -20,6 +21,8 @@ router.post(
 );
 
 router.get('/user', requireAuth, authController.getProfile);
+
+router.post('/update_profile', requireAuth, authController.updateProfile);
 
 router.get('/logout', authController.logout);
 

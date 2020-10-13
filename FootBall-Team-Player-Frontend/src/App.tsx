@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Backdrop from 'src/components/Backdrop';
+import Snackbar from 'src/components/Snackbar';
 import background from './assets/images/background.jpg';
 import Routes from './routes';
 
@@ -19,6 +21,8 @@ const App: React.FC = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      <Backdrop />
+      <Snackbar />
       <BrowserRouter>
         <Routes />
       </BrowserRouter>

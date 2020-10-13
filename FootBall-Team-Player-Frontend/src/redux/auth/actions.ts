@@ -1,4 +1,5 @@
-import { AuthActionTypes, User } from './types';
+import { User } from 'src/models';
+import { AuthActionTypes } from './types';
 
 export const signInRequest = (user: User) => ({
   type: AuthActionTypes.SIGNIN_REQUEST,
@@ -45,6 +46,26 @@ export const signOutError = (err: string) => ({
   payload: err,
 });
 
+export const updateProfile = (payload: any) => ({
+  type: AuthActionTypes.UPDATE_PROFILE,
+  payload,
+});
+
+export const updateProfileSuccess = (payload: User) => ({
+  type: AuthActionTypes.UPDATE_PROFILE_SUCESS,
+  payload,
+});
+
+export const updateProfileError = (payload: string) => ({
+  type: AuthActionTypes.UPDATE_PROFILE_ERROR,
+  payload,
+});
+
+export const forgotPassword = (payload: string) => ({
+  type: AuthActionTypes.FORGOT_PASSWORD,
+  payload,
+});
+
 export type AuthActions =
   | ReturnType<typeof signInRequest>
   | ReturnType<typeof signInSuccess>
@@ -54,4 +75,8 @@ export type AuthActions =
   | ReturnType<typeof signUpError>
   | ReturnType<typeof signOutRequest>
   | ReturnType<typeof signOutSuccess>
-  | ReturnType<typeof signOutError>;
+  | ReturnType<typeof signOutError>
+  | ReturnType<typeof updateProfile>
+  | ReturnType<typeof updateProfileSuccess>
+  | ReturnType<typeof updateProfileError>
+  | ReturnType<typeof forgotPassword>;

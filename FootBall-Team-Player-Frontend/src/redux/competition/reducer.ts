@@ -1,9 +1,12 @@
+import { Competition } from 'src/models';
 import { CompetitionActions as ActionType } from './actions';
-import { CompetitionTypes, CompetitionState, Competition } from './types';
+import { CompetitionTypes, CompetitionState } from './types';
 
 export const initialState: CompetitionState = {
   competitions: [],
+  storedCompetitons: [],
   error: '',
+  loading: false,
 };
 
 const reducer = (
@@ -13,15 +16,39 @@ const reducer = (
   const { type, payload } = action;
 
   switch (type) {
-    case CompetitionTypes.COMPETITON_REQUEST_SUCCESS:
+    case CompetitionTypes.FETCH_COMPETITONS_REQUEST:
+    case CompetitionTypes.GET_COMPETITIONS_REQUEST:
+    case CompetitionTypes.UPDATE_COMPETITION_REQUEST:
       return {
         ...state,
-        competitions: [...(payload as Competition[])],
+        loading: true,
       };
-    case CompetitionTypes.COMPETITON_REQUEST_ERROR:
+
+    case CompetitionTypes.FETCH_COMPETITONS_SUCCESS:
+      return {
+        ...state,
+        competitions: payload as Competition[],
+        loading: false,
+      };
+    case CompetitionTypes.GET_COMPETITIONS_SUCCESS:
+      return {
+        ...state,
+        storedCompetitons: payload as Competition[],
+        loading: false,
+      };
+    case CompetitionTypes.UPDATE_COMPETITION_SUCESS:
+      return {
+        ...state,
+        storedCompetitons: payload as Competition[],
+        loading: false,
+      };
+    case CompetitionTypes.FETCH_COMPETITONS_ERROR:
+    case CompetitionTypes.GET_COMPETITIONS_ERROR:
+    case CompetitionTypes.UPDATE_COMPETITION_ERROR:
       return {
         ...state,
         error: payload as string,
+        loading: false,
       };
     default:
       return state;

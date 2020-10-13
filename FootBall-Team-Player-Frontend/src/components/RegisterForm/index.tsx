@@ -14,9 +14,9 @@ import {
 import { makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
+import { User } from 'src/models';
 import * as authActions from 'src/redux/auth/actions';
 import { ValidateEmail, ValidatePassword } from 'src/utils';
-import { User } from 'src/redux/auth/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},

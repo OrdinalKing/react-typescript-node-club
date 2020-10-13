@@ -2,12 +2,17 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ForgotPassword from './pages/ForgotPassword';
+import { User } from './models';
+import Login from './pages/Auth/Login';
+import Register from './pages/Auth/Register';
+import ForgotPassword from './pages/Auth/ForgotPassword';
 import Home from './pages/Home';
+import Team from './pages/Team';
+import Player from './pages/Player';
+import Profile from './pages/Profile';
+import TeamDetail from './pages/TeamDetail';
+import PlayerDetail from './pages/PlayerDetail';
 import { RootState } from './redux/rootReducer';
-import { User } from './redux/auth/types';
 
 interface PrivateRouteProp {
   component: React.FC;
@@ -59,7 +64,20 @@ const Routes: React.FC<any> = (): JSX.Element => {
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
       <Route path="/forgot" exact component={ForgotPassword} />
+      <PrivateRoute
+        path="/teams/:teamId/"
+        component={TeamDetail}
+        isLoggedIn={!!user}
+      />
+      <PrivateRoute
+        path="/players/:playerId/"
+        component={PlayerDetail}
+        isLoggedIn={!!user}
+      />
       <PrivateRoute path="/home" component={Home} isLoggedIn={!!user} />
+      <PrivateRoute path="/teams" component={Team} isLoggedIn={!!user} />
+      <PrivateRoute path="/players" component={Player} isLoggedIn={!!user} />
+      <PrivateRoute path="/profile" component={Profile} isLoggedIn={!!user} />
       <Route path="*" exact render={() => <Redirect to="/login" />} />
     </Switch>
   );

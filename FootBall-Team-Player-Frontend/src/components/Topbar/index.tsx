@@ -10,11 +10,11 @@ import MoreButton from './MoreButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    position: 'fixed',
     width: '100%',
     height: theme.spacing(8),
     display: 'flex',
     color: 'white',
+    zIndex: 100,
   },
   navbar: {
     display: 'flex',
@@ -53,13 +53,13 @@ const Topbar: React.FC<any> = (): JSX.Element => {
           underline="none"
           variant="h5"
         >
-          Home
+          Leagues
         </Link>
         <Link
           align="center"
           color="inherit"
           component={RouterLink}
-          to="/home"
+          to="/teams"
           underline="none"
           variant="h5"
         >
@@ -69,7 +69,7 @@ const Topbar: React.FC<any> = (): JSX.Element => {
           align="center"
           color="inherit"
           component={RouterLink}
-          to="/home"
+          to="/players"
           underline="none"
           variant="h5"
         >
@@ -77,10 +77,6 @@ const Topbar: React.FC<any> = (): JSX.Element => {
         </Link>
       </div>
       <Card className={classes.avatar}>
-        {/* <Avatar src={AvatarImg} alt="User" />
-        <Typography className={classes.username} color="inherit" variant="h6" >
-          {user && `${user.firstname} ${user.lastname}`}
-        </Typography> */}
         <CardHeader
           title={<Avatar src={AvatarImg} alt="User" />}
           action={<MoreButton />}

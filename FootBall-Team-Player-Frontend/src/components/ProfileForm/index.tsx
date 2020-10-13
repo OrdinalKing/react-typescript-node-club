@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   FormControl,
@@ -17,6 +17,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { User } from 'src/models';
 import * as authActions from 'src/redux/auth/actions';
 import { ValidateEmail, ValidatePassword } from 'src/utils';
+import { RootState } from 'src/redux/rootReducer';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -56,7 +57,7 @@ const HtmlTooltip = withStyles((theme: Theme) => ({
   },
 }))(Tooltip);
 
-const RegisterForm: React.FC<any> = (): JSX.Element => {
+const ProfileForm: React.FC<any> = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [user, setUser] = useState<User>({
@@ -73,6 +74,14 @@ const RegisterForm: React.FC<any> = (): JSX.Element => {
   const [openConfirmPwdTooltip, setOpenConfirmPwdTooltip] = useState<boolean>(
     false
   );
+
+  const loginUser: User = useSelector<RootState>(
+    (state: RootState) => state.auth.user
+  ) as User;
+
+  useEffect(() => {
+    setUser(loginUser);
+  }, [loginUser]);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -137,6 +146,34 @@ const RegisterForm: React.FC<any> = (): JSX.Element => {
         </HtmlTooltip>
         <HtmlTooltip
           PopperProps={{ disablePortal: true }}
+          onClose={() => setOpenEmailToolTip(false)}
+          open={openEmailTooltip}
+          disableHoverListener
+          placement="bottom-start"
+          arrow
+          title={
+            <>
+              {ValidateEmail(user.email).map((error) => (
+                <Typography key={error} color="inherit">
+                  {error}
+                </Typography>
+              ))}
+            </>
+          }
+        >
+          <TextField
+            fullWidth
+            label="Email"
+            name="email"
+            onChange={handleChange}
+            onFocus={() => setOpenEmailToolTip(!!ValidateEmail(user.email))}
+            onBlur={() => setOpenEmailToolTip(false)}
+            value={user.email}
+            variant="outlined"
+          />
+        </HtmlTooltip>
+        <HtmlTooltip
+          PopperProps={{ disablePortal: true }}
           onClose={() => setOpenPwdTooltip(false)}
           open={openPwdTooltip}
           disableHoverListener
@@ -153,7 +190,7 @@ const RegisterForm: React.FC<any> = (): JSX.Element => {
           }
         >
           <FormControl variant="outlined" fullWidth required>
-            <InputLabel htmlFor="password">Password</InputLabel>
+            <InputLabel htmlFor="password">New Password</InputLabel>
             <OutlinedInput
               id="password"
               type={showPassword ? 'text' : 'password'}
@@ -237,4 +274,4 @@ const RegisterForm: React.FC<any> = (): JSX.Element => {
   );
 };
 
-export default RegisterForm;
+export default ProfileForm;

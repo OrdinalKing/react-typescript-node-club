@@ -1,116 +1,79 @@
-import React, { useEffect, useState } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import {
-  Checkbox,
   TableCell,
   TableHead,
   TableRow,
   TableSortLabel,
+  Typography,
 } from '@material-ui/core';
+import { ArrowDropDown } from '@material-ui/icons';
 
-import { Competition } from 'src/redux/competition/types';
-import { Team } from 'src/redux/team/types';
+import { Column, Order } from './types';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    visuallyHidden: {
-      border: 0,
-      clip: 'rect(0 0 0 0)',
-      height: 1,
-      margin: -1,
-      overflow: 'hidden',
-      padding: 0,
-      position: 'absolute',
-      top: 20,
-      width: 1,
-    },
-  })
-);
+const useStyles = makeStyles(() => ({
+  visuallyHidden: {
+    border: 0,
+    clip: 'rect(0 0 0 0)',
+    height: 1,
+    margin: -1,
+    overflow: 'hidden',
+    padding: 0,
+    position: 'absolute',
+    top: 20,
+    width: 1,
+  },
+}));
 
-export type Data = Competition | Team;
-
-export type Order = 'asc' | 'desc';
-
-interface HeadCell {
-  id: string;
-  label: string;
-}
-
-interface EnhancedTableProps {
-  numSelected: number;
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data
-  ) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
+interface IProps {
+  columns: Column[];
   orderBy: string;
-  rowCount: number;
-  columns: string[];
+  order: Order;
+  handleRequestSort: (e: React.MouseEvent<unknown>, field: string) => void;
 }
 
-const EnhancedTableHead: React.FC<EnhancedTableProps> = (
-  props: EnhancedTableProps
-): JSX.Element => {
+const TableHeaderComponent: React.FC<IProps> = ({
+  columns,
+  orderBy,
+  order,
+  handleRequestSort,
+}: IProps): JSX.Element => {
   const classes = useStyles();
-  const [headCells, setHeadCells] = useState<HeadCell[]>([]);
-
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    columns,
-    onRequestSort,
-  } = props;
-
-  useEffect(() => {
-    if (columns) {
-      const newHeadCells: HeadCell[] = [];
-      columns.forEach((column) =>
-        newHeadCells.push({ id: column, label: column })
-      );
-      setHeadCells(newHeadCells);
-    }
-  }, [columns]);
-
-  const createSortHandler = (property: keyof Data) => (
-    event: React.MouseEvent<unknown>
-  ) => {
-    onRequestSort(event, property);
-  };
 
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
+        {columns.map((column: Column) => (
           <TableCell
-            key={headCell.id}
-            padding="none"
+            key={column.field}
             align="center"
-            sortDirection={orderBy === headCell.id ? order : false}
+            padding="default"
+            sortDirection={orderBy === column.field ? order : false}
+            width={column.width}
           >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id as keyof Data)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
-              ) : null}
-            </TableSortLabel>
+            <Typography variant="subtitle1">
+              {column.sortable ? (
+                <TableSortLabel
+                  active={orderBy === column.field}
+                  direction={orderBy === column.field ? order : 'asc'}
+                  onClick={(e: React.MouseEvent<unknown>) =>
+                    handleRequestSort(e, column.field)
+                  }
+                  IconComponent={ArrowDropDown}
+                >
+                  {column.header}
+                  {orderBy === column.field ? (
+                    <span className={classes.visuallyHidden}>
+                      {order === 'desc'
+                        ? 'sorted decending'
+                        : 'sorted ascending'}
+                    </span>
+                  ) : null}
+                </TableSortLabel>
+              ) : (
+                column.header
+              )}
+            </Typography>
           </TableCell>
         ))}
       </TableRow>
@@ -118,4 +81,4 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (
   );
 };
 
-export default EnhancedTableHead;
+export default TableHeaderComponent;

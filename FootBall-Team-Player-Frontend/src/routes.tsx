@@ -2,13 +2,15 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ForgotPassword from './pages/ForgotPassword';
+import { User } from './models';
+import Login from './pages/Auth/Login';
+import Register from './pages/Auth/Register';
+import ForgotPassword from './pages/Auth/ForgotPassword';
 import Home from './pages/Home';
-import Team from './pages/Teams';
+import Team from './pages/Team';
+import Player from './pages/Player';
+import Profile from './pages/Profile';
 import { RootState } from './redux/rootReducer';
-import { User } from './redux/auth/types';
 
 interface PrivateRouteProp {
   component: React.FC;
@@ -62,6 +64,8 @@ const Routes: React.FC<any> = (): JSX.Element => {
       <Route path="/forgot" exact component={ForgotPassword} />
       <PrivateRoute path="/home" component={Home} isLoggedIn={!!user} />
       <PrivateRoute path="/teams" component={Team} isLoggedIn={!!user} />
+      <PrivateRoute path="/players" component={Player} isLoggedIn={!!user} />
+      <PrivateRoute path="/profile" component={Profile} isLoggedIn={!!user} />
       <Route path="*" exact render={() => <Redirect to="/login" />} />
     </Switch>
   );

@@ -1,21 +1,22 @@
-import { Team, TeamTypes } from './types';
+import { Team } from 'src/models';
+import { TeamTypes } from './types';
 
-export const fetchTeam = (payload: string) => ({
-  type: TeamTypes.TEAM_REQUEST,
+export const getTeams = (payload: any) => ({
+  type: TeamTypes.GET_TEAMS_REQUEST,
   payload,
 });
 
-export const fetchTeamSuccess = (payload: Team[]) => ({
-  type: TeamTypes.TEAM_REQUEST_SUCCESS,
+export const getTeamsSuccess = (payload: Team[]) => ({
+  type: TeamTypes.GET_TEAMS_SUCCESS,
   payload,
 });
 
-export const fetchTeamError = (payload: string) => ({
-  type: TeamTypes.TEAM_REQUEST_ERROR,
+export const getTeamsError = (payload: string) => ({
+  type: TeamTypes.GET_TEAMS_ERROR,
   payload,
 });
 
 export type TeamActions =
-  | ReturnType<typeof fetchTeam>
-  | ReturnType<typeof fetchTeamSuccess>
-  | ReturnType<typeof fetchTeamError>;
+  | ReturnType<typeof getTeams>
+  | ReturnType<typeof getTeamsSuccess>
+  | ReturnType<typeof getTeamsError>;

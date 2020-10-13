@@ -1,22 +1,38 @@
-import { CompetitionTypes, Competition } from './types';
+import { Competition } from 'src/models';
+import { CompetitionTypes } from './types';
 
-export const fetchCompetition = () => ({
-  type: CompetitionTypes.COMPETITON_REQUEST,
+export const fetchCompetitions = () => ({
+  type: CompetitionTypes.FETCH_COMPETITONS_REQUEST,
   payload: '',
 });
 
-export const fetchCompetitionSuccess = (payload: Array<any>) => ({
-  type: CompetitionTypes.COMPETITON_REQUEST_SUCCESS,
+export const fetchCompetitionsSuccess = (payload: Array<Competition>) => ({
+  type: CompetitionTypes.FETCH_COMPETITONS_SUCCESS,
   payload,
 });
 
-export const fetchCompetitionError = (payload: string) => ({
-  type: CompetitionTypes.COMPETITON_REQUEST_ERROR,
+export const fetchCompetitionsError = (payload: string) => ({
+  type: CompetitionTypes.FETCH_COMPETITONS_ERROR,
   payload,
 });
 
-export const updateCompetition = (payload: number[]) => ({
+export const getCompetitions = () => ({
+  type: CompetitionTypes.GET_COMPETITIONS_REQUEST,
+  payload: '',
+});
+
+export const getCompetitionsSuccess = (payload: Competition[]) => ({
+  type: CompetitionTypes.GET_COMPETITIONS_SUCCESS,
+  payload,
+});
+
+export const updateCompetition = (payload: Competition) => ({
   type: CompetitionTypes.UPDATE_COMPETITION_REQUEST,
+  payload,
+});
+
+export const getCompetitionError = (payload: string) => ({
+  type: CompetitionTypes.GET_COMPETITIONS_ERROR,
   payload,
 });
 
@@ -31,9 +47,12 @@ export const updateCompetitionError = (payload: string) => ({
 });
 
 export type CompetitionActions =
-  | ReturnType<typeof fetchCompetition>
-  | ReturnType<typeof fetchCompetitionSuccess>
-  | ReturnType<typeof fetchCompetitionError>
+  | ReturnType<typeof fetchCompetitions>
+  | ReturnType<typeof fetchCompetitionsSuccess>
+  | ReturnType<typeof fetchCompetitionsError>
+  | ReturnType<typeof getCompetitions>
+  | ReturnType<typeof getCompetitionsSuccess>
+  | ReturnType<typeof getCompetitionError>
   | ReturnType<typeof updateCompetition>
   | ReturnType<typeof updateCompetitonSuccess>
   | ReturnType<typeof updateCompetitionError>;

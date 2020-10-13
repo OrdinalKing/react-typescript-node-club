@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Prerequisites
+
+You must have the following installed:
+
+- [Node.js v10+](https://nodejs.org/en/download/)
+- NPM v6+ (comes installed with newer Node versions)
+- Copy and Paste `.env.example` and rename it to `.env`. After that, store API Auth Token in `.env` file
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -8,3 +8,5 @@ export type OperatorType =
   | 'EW'
   | 'IN'
   | 'WC';
+
+export type SeverityType = 'error' | 'warning' | 'info' | 'success';

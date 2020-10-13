@@ -1326,6 +1326,17 @@
   dependencies:
     "@babel/runtime" "^7.4.4"
 
+"@material-ui/lab@^4.0.0-alpha.56":
+  version "4.0.0-alpha.56"
+  resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-4.0.0-alpha.56.tgz#ff63080949b55b40625e056bbda05e130d216d34"
+  integrity sha512-xPlkK+z/6y/24ka4gVJgwPfoCF4RCh8dXb1BNE7MtF9bXEBLN/lBxNTK8VAa0qm3V2oinA6xtUIdcRh0aeRtVw==
+  dependencies:
+    "@babel/runtime" "^7.4.4"
+    "@material-ui/utils" "^4.10.2"
+    clsx "^1.0.4"
+    prop-types "^15.7.2"
+    react-is "^16.8.0"
+
 "@material-ui/styles@^4.10.0":
   version "4.10.0"
   resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-4.10.0.tgz#2406dc23aa358217aa8cc772e6237bd7f0544071"
@@ -11047,11 +11058,6 @@ ts-pnp@1.1.6, ts-pnp@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.1.6.tgz#389a24396d425a0d3162e96d2b4638900fdc289a"
   integrity sha512-CrG5GqAAzMT7144Cl+UIFP7mz/iIhiy+xQ6GGcnjTezhALT02uPMRw7tgDSESgB5MsfKt55+GPWw4ir1kVtMIQ==
-
-ts-transformer-keys@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/ts-transformer-keys/-/ts-transformer-keys-0.4.2.tgz#130d5b116b14d537d26aff2894dca10ac1877b22"
-  integrity sha512-8WVoathKnPIeZbhKuqkBKdWLq1JuiZjT5EmaKobeMI5AHQZIVLI8vyU+1h7e1YiIEIvtBUbmZ12uj2cFbgj5qg==
 
 tsconfig-paths@^3.9.0:
   version "3.9.0"

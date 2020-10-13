@@ -4,6 +4,10 @@ import axios from 'axios';
 import { getParams, URL } from 'src/utils/api';
 import { clearToken, saveToken } from 'src/utils/localStorage';
 import {
+  setSuccessNotification,
+  setErrorNotification,
+} from 'src/redux/snackbar/actions';
+import {
   AuthActions as ActionType,
   signInSuccess,
   signInError,
@@ -24,16 +28,20 @@ function* handleSignInRequest({ payload }: ActionType) {
     const { token, user } = data;
     saveToken(token);
     yield put(signInSuccess(user));
+    yield put(setSuccessNotification('Login Successfully!'));
   } catch (err) {
-    yield put(signInError(err));
+    yield put(signInError(err.message));
+    yield put(setErrorNotification(err.message));
   }
 }
 
 function* handleSignUpRequest({ payload }: ActionType) {
   try {
     yield call(axios.request, getParams(URL.SIGN_UP, 'POST', payload));
+    yield put(setSuccessNotification('Successfully Registered!'));
   } catch (err) {
-    yield put(signUpError(err));
+    yield put(signUpError(err.message));
+    yield put(setErrorNotification(err.message));
   }
 }
 
@@ -54,8 +62,10 @@ function* handleUpdateProfile({ payload }: ActionType) {
       getParams(URL.UPDATE_PROFILE, 'POST', payload)
     );
     yield put(updateProfileSuccess(data));
+    yield put(setSuccessNotification('Profile Updated Successfully'));
   } catch (err) {
-    yield put(updateProfileError(err));
+    yield put(updateProfileError(err.message));
+    yield put(setErrorNotification(err.message));
   }
 }
 

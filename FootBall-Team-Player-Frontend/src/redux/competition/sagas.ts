@@ -4,6 +4,10 @@ import axios from 'axios';
 import { getParams, URL, getFootballParams } from 'src/utils/api';
 import { Competition } from 'src/models';
 import {
+  setSuccessNotification,
+  setErrorNotification,
+} from 'src/redux/snackbar/actions';
+import {
   CompetitionActions as ActionType,
   fetchCompetitionsSuccess,
   fetchCompetitionsError,
@@ -38,6 +42,7 @@ function* handleFetchCompetitions() {
     yield put(fetchCompetitionsSuccess(competitions as Competition[]));
   } catch (err) {
     yield put(fetchCompetitionsError(err));
+    yield put(setErrorNotification(err.message));
   }
 }
 
@@ -60,8 +65,12 @@ function* handleUpdateCompetition({ payload }: ActionType) {
       getParams(URL.UPDATE_COMPETITION, 'POST', { ...(payload as Competition) })
     );
     yield put(updateCompetitonSuccess(data));
+    yield put(
+      setSuccessNotification('Import/Update Teams and Players Successfully')
+    );
   } catch (err) {
-    yield put(updateCompetitionError(err));
+    yield put(updateCompetitionError(err.message));
+    yield put(setErrorNotification(err.message));
   }
 }
 

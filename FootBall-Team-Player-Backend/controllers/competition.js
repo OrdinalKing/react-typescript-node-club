@@ -1,31 +1,42 @@
 const Competition = require('../models/competition');
 const Team = require('../models/team');
-const Player = require('../models/Player');
+const Player = require('../models/player');
 const footballCloud = require('../services/footballCould');
 
 exports.updateCompetitionDetails = (req, res) => {
-  const teamData = [];
-  Team.collection.drop();
-  Player.collection.drop();
+  const newTeams = [];
+  const newPlayers = [];
   footballCloud
     .fetchTeams(req.body.code)
-    .then((data) => Team.insertMany(data.teams.filter((item) => item.crestUrl)))
-    .then((teams) => {
-      teamData.push(...teams);
-      return footballCloud.fetchPlayersByTeams(teams);
+    .then((data) => {
+      newTeams.push(...data.teams.filter((item) => item.crestUrl));
+      const ids = newTeams.map((team) => team.id);
+      return Team.deleteMany({ id: { $in: ids } });
     })
+    .then(() => Team.insertMany(newTeams))
+    .then((teams) => footballCloud.fetchPlayersByTeams(teams))
     .then((data) => Promise.all(data.map((item) => item.json())))
     .then((data) => {
       const players = [];
       data.map((item) => item && item.squad && players.push(...item.squad));
-      return Player.insertMany(players);
+
+      let duplicate = {};
+      for (let player of players) {
+        if (!duplicate[player.id]) {
+          duplicate[player.id] = 1;
+          newPlayers.push(player);
+        }
+      }
+      const ids = newPlayers.map((player) => player.id);
+      return Player.deleteMany({ id: { $in: ids } });
     })
-    .then((players) =>
-      res.json({
-        teams: teamData,
-        players,
-      })
-    )
+    .then(() => Player.insertMany(newPlayers))
+    .then(() => {
+      const competition = new Competition(req.body);
+      return competition.save();
+    })
+    .then(() => Competition.find())
+    .then((competitions) => res.json(competitions))
     .catch((error) => res.status(500).json({ error }));
 };
 

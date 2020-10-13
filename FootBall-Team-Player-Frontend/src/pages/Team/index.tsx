@@ -92,6 +92,7 @@ const Home: React.FC<any> = (): JSX.Element => {
     filters: any
   ) => {
     dispatch(getTeams(filters));
+    setOpenSearch(false);
   };
 
   return (

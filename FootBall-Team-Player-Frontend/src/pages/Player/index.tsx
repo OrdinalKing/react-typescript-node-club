@@ -81,6 +81,7 @@ const Home: React.FC<any> = (): JSX.Element => {
     filters: any
   ) => {
     dispatch(getPlayers(filters));
+    setOpenSearch(false);
   };
 
   return (

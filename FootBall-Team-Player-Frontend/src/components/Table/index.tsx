@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
@@ -40,6 +40,10 @@ const TableComponent: React.FC<IProps> = ({
   const [rowsPerPage] = useState<number>(10);
   const [orderBy, setOrderBy] = useState<string>(defaultOrderBy);
   const [order, setOrder] = useState<Order>('asc');
+
+  useEffect(() => {
+    setPage(0);
+  }, [rows]);
 
   const handleChangePage = (e: unknown, newPage: number) => {
     setPage(newPage);

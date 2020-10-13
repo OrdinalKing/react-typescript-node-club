@@ -7,6 +7,7 @@ import Topbar from 'src/components/Topbar';
 import { Player } from 'src/models';
 import { RootState } from 'src/redux/rootReducer';
 import { getPlayers } from 'src/redux/player/actions';
+import SearchDrawer from './SearchDrawer';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -56,7 +57,7 @@ const Home: React.FC<any> = (): JSX.Element => {
   ) as Player[];
 
   useEffect(() => {
-    dispatch(getPlayers(''));
+    dispatch(getPlayers({}));
     // eslint-disable-next-line
   }, []);
 
@@ -71,6 +72,17 @@ const Home: React.FC<any> = (): JSX.Element => {
     setOpenSearch(true);
   };
 
+  const toggleDrawer = (e: unknown, r: unknown, newState: boolean) => {
+    setOpenSearch(newState);
+  };
+
+  const handleSearch = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    filters: any
+  ) => {
+    dispatch(getPlayers(filters));
+  };
+
   return (
     <div className={classes.root}>
       <Topbar />
@@ -81,6 +93,11 @@ const Home: React.FC<any> = (): JSX.Element => {
           rows={playerList}
           title="Player"
           handleOpenSearch={handleOpenSearch}
+        />
+        <SearchDrawer
+          state={openSearch}
+          toggleDrawer={toggleDrawer}
+          handleSearch={handleSearch}
         />
       </div>
     </div>

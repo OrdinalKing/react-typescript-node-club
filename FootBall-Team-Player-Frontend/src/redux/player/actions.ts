@@ -1,7 +1,7 @@
 import { Player } from 'src/models';
 import { PlayerTypes } from './types';
 
-export const getPlayers = (payload: string) => ({
+export const getPlayers = (payload: any) => ({
   type: PlayerTypes.GET_PLAYERS_REQUEST,
   payload,
 });

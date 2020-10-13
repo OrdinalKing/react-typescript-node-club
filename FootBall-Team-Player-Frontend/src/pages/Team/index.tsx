@@ -7,6 +7,7 @@ import Topbar from 'src/components/Topbar';
 import { Team } from 'src/models';
 import { RootState } from 'src/redux/rootReducer';
 import { getTeams } from 'src/redux/team/actions';
+import SearchDrawer from './SearchDrawer';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -67,7 +68,7 @@ const Home: React.FC<any> = (): JSX.Element => {
   ) as Team[];
 
   useEffect(() => {
-    dispatch(getTeams(''));
+    dispatch(getTeams({}));
     // eslint-disable-next-line
   }, []);
 
@@ -82,6 +83,17 @@ const Home: React.FC<any> = (): JSX.Element => {
     setOpenSearch(true);
   };
 
+  const toggleDrawer = (e: unknown, r: unknown, newState: boolean) => {
+    setOpenSearch(newState);
+  };
+
+  const handleSearch = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    filters: any
+  ) => {
+    dispatch(getTeams(filters));
+  };
+
   return (
     <div className={classes.root}>
       <Topbar />
@@ -92,6 +104,11 @@ const Home: React.FC<any> = (): JSX.Element => {
           rows={teamList}
           title="Team"
           handleOpenSearch={handleOpenSearch}
+        />
+        <SearchDrawer
+          state={openSearch}
+          toggleDrawer={toggleDrawer}
+          handleSearch={handleSearch}
         />
       </div>
     </div>

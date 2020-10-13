@@ -1,7 +1,7 @@
 import { Team } from 'src/models';
 import { TeamTypes } from './types';
 
-export const getTeams = (payload: string) => ({
+export const getTeams = (payload: any) => ({
   type: TeamTypes.GET_TEAMS_REQUEST,
   payload,
 });

@@ -128,6 +128,7 @@ const Home: React.FC<any> = (): JSX.Element => {
           rows={competitionList}
           title="League"
           handleOpenSearch={handleOpenSearch}
+          showSearch={false}
         />
       </div>
     </div>

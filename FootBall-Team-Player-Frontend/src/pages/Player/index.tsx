@@ -93,6 +93,7 @@ const Home: React.FC<any> = (): JSX.Element => {
           columns={columns}
           rows={playerList}
           title="Player"
+          showSearch
           handleOpenSearch={handleOpenSearch}
         />
         <SearchDrawer

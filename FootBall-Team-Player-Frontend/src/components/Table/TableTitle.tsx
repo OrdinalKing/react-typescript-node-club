@@ -17,11 +17,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface IProps {
   title: string;
+  showSearch: boolean;
   handleOpenSearch: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TableTitle: React.FC<IProps> = ({
   title,
+  showSearch,
   handleOpenSearch,
 }: IProps): JSX.Element => {
   const classes = useStyles();
@@ -30,9 +32,11 @@ const TableTitle: React.FC<IProps> = ({
       <Typography className={classes.title} variant="h6">
         {title}
       </Typography>
-      <IconButton className={classes.search} onClick={handleOpenSearch}>
-        <Search />
-      </IconButton>
+      {showSearch && (
+        <IconButton className={classes.search} onClick={handleOpenSearch}>
+          <Search />
+        </IconButton>
+      )}
     </div>
   );
 };

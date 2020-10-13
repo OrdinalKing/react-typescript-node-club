@@ -26,6 +26,7 @@ interface IProps {
   rows: Array<any>;
   title: string;
   handleOpenSearch: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  showSearch: boolean;
 }
 
 const TableComponent: React.FC<IProps> = ({
@@ -34,6 +35,7 @@ const TableComponent: React.FC<IProps> = ({
   rows,
   title,
   handleOpenSearch,
+  showSearch,
 }: IProps): JSX.Element => {
   const classes = useStyles();
   const [page, setPage] = useState<number>(0);
@@ -60,7 +62,11 @@ const TableComponent: React.FC<IProps> = ({
 
   return (
     <Paper className={classes.root}>
-      <TableTitle title={title} handleOpenSearch={handleOpenSearch} />
+      <TableTitle
+        title={title}
+        handleOpenSearch={handleOpenSearch}
+        showSearch={showSearch}
+      />
       <TableContainer className={classes.container}>
         <Table>
           <TableHead

@@ -61,6 +61,11 @@ export const updateProfileError = (payload: string) => ({
   payload,
 });
 
+export const forgotPassword = (payload: string) => ({
+  type: AuthActionTypes.FORGOT_PASSWORD,
+  payload,
+});
+
 export type AuthActions =
   | ReturnType<typeof signInRequest>
   | ReturnType<typeof signInSuccess>
@@ -73,4 +78,5 @@ export type AuthActions =
   | ReturnType<typeof signOutError>
   | ReturnType<typeof updateProfile>
   | ReturnType<typeof updateProfileSuccess>
-  | ReturnType<typeof updateProfileError>;
+  | ReturnType<typeof updateProfileError>
+  | ReturnType<typeof forgotPassword>;

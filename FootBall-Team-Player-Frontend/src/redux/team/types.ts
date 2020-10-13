@@ -9,4 +9,5 @@ export enum TeamTypes {
 export interface TeamState {
   teams: Team[];
   error: string | null | undefined;
+  loading: boolean;
 }

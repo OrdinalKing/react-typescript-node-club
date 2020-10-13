@@ -18,4 +18,5 @@ export interface CompetitionState {
   competitions: Competition[];
   storedCompetitons: Competition[];
   error: Maybe<string>;
+  loading: boolean;
 }

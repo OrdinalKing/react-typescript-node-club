@@ -25,4 +25,5 @@ export type Maybe<T> = T | undefined | null;
 export interface AuthState {
   user: Maybe<User>;
   error: Maybe<string>;
+  loading: boolean;
 }

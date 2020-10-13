@@ -9,4 +9,5 @@ export enum PlayerTypes {
 export interface PlayerState {
   players: Player[];
   error: string | null | undefined;
+  loading: boolean;
 }

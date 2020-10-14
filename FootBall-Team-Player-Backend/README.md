@@ -26,3 +26,9 @@ Now we should be all set! Run the application using the `npm` command.
 ```bash
 npm run dev
 ```
+
+## Dokerization
+
+If you run the backend with docker, you can use the following command lines.
+
+`docker-compose up -d`

@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: nodejs
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - PORT=$PORT
+      - JWT_SECRET=$JWT_SECRET
+      - JWT_EXPIRE_MINUTES=$JWT_EXPIRE_MINUTES
+      - MONGO_URI=$MONGO_URI
+      - MONGO_URI_DEV=$MONGO_URI_DEV
+      - APP_NAME=$APP_NAME
+      - MAIL_SENDER=$MAIL_SENDER
+      - MAIL_SENDER_PASS=$MAIL_SENDER_PASS
+      - DATA_API_KEY=$DATA_API_KEY
+
+    ports:
+      - '5000:5000'
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    networks:
+      - app-network
+    command: ./wait-for.sh db:27017 -- /home/node/app/node_modules/.bin/nodemon app.js
+
+  db:
+    image: mongo:4.1.8-xenial
+    container_name: db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - PORT=$PORT
+      - JWT_SECRET=$JWT_SECRET
+      - JWT_EXPIRE_MINUTES=$JWT_EXPIRE_MINUTES
+      - MONGO_URI=$MONGO_URI
+      - MONGO_URI_DEV=$MONGO_URI_DEV
+      - APP_NAME=$APP_NAME
+      - MAIL_SENDER=$MAIL_SENDER
+      - MAIL_SENDER_PASS=$MAIL_SENDER_PASS
+      - DATA_API_KEY=$DATA_API_KEY
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+  node_modules:

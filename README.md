@@ -1,2 +1,0 @@
-# wangda-win-finaltask-training
-
